@@ -23,7 +23,7 @@ export class DriverBaselineComponent {
   readonly maxCompareDrivers = 4;
   selectedDriverIds: string[] = [];
 
-  compareMetric: 'ndpph' | 'stops' | 'miles' | 'spm' | 'paidVsPlan' = 'ndpph';
+  compareMetric: 'ndpph' | 'stops' | 'miles' | 'spm' | 'paidVsPlan' | 'sporh' = 'ndpph';
   compareMode: 'absolute' | 'delta' = 'absolute';
 
   // Drilldown: driver -> route -> days
@@ -129,7 +129,8 @@ export class DriverBaselineComponent {
       }
       default: {
         const avg = rows.reduce((s, r) => s + (+r[metric] || 0), 0) / rows.length;
-        return +avg.toFixed(metric === 'paidVsPlan' ? 2 : 1);
+        const decimals = metric === 'paidVsPlan' ? 2 : metric === 'sporh' ? 1 : 1;
+        return +avg.toFixed(decimals);
       }
     }
   }
@@ -152,7 +153,7 @@ export class DriverBaselineComponent {
     return Math.min((Math.abs(this.chartValue(driverId)) / max) * 100, 100);
   }
 
-  // ---------- Route list under a driver ----------
+  // ---------- Route list under a driver (NOW WITH ROLLUPS) ----------
   getRoutesForDriver(driverId: string) {
     const rows = this.getDailyForDriverAll(driverId);
     if (!rows.length) return [];
@@ -168,13 +169,49 @@ export class DriverBaselineComponent {
 
     const routes = Array.from(byRoute.entries()).map(([routeId, rws]) => {
       const days = rws.length;
+
+      // last driven (max date string)
       const last = [...rws].sort((a, b) => (a.date < b.date ? 1 : -1))[0]?.date ?? '—';
       const pct = totalDays ? (days / totalDays) * 100 : 0;
-      return { routeId, days, pct, lastDriven: last };
+
+      // rollups (preview stats before expanding)
+      const avgStops = round(avg(rws, 'stops'), 0);
+      const avgMiles = round(avg(rws, 'miles'), 0);
+      const avgNDPPH = round(avg(rws, 'ndpph'), 1);
+      const avgOvUn = round(avg(rws, 'paidVsPlan'), 2);
+      const avgSPORH = round(avg(rws, 'sporh'), 1);
+
+      const totalStops = rws.reduce((s, r) => s + (+r.stops || 0), 0);
+      const totalMiles = rws.reduce((s, r) => s + (+r.miles || 0), 0);
+      const avgSPM = totalMiles ? +(totalStops / totalMiles).toFixed(2) : 0;
+
+      return {
+        routeId,
+        days,
+        pct,
+        lastDriven: last,
+
+        // ✅ rollups
+        avgStops,
+        avgMiles,
+        avgSPM,
+        avgNDPPH,
+        avgOvUn,
+        avgSPORH,
+      };
     });
 
     routes.sort((a, b) => b.days - a.days);
     return routes;
+
+    function avg(list: any[], field: string) {
+      return list.reduce((s, r) => s + (+r[field] || 0), 0) / list.length;
+    }
+
+    function round(n: number, decimals: number) {
+      if (!Number.isFinite(n)) return 0;
+      return +n.toFixed(decimals);
+    }
   }
 
   isPrimaryRoute(driverId: string, routeId: string) {
@@ -237,16 +274,35 @@ export class DriverBaselineComponent {
     map(([data, config]) => {
       if (!data) return [];
 
-      const byId = new Map(data.drivers.map((d: any) => [d.driverId, d]));
+      const byId = new Map((data.drivers ?? []).map((d: any) => [d.driverId, d]));
+      const allDaily = data.dailyHistory ?? [];
 
+      const computeAvgSPORH = (driverId: string) => {
+        const rows = allDaily.filter((r: any) => r.driverId === driverId);
+        if (!rows.length) return '—';
+        const avg = rows.reduce((s: number, r: any) => s + (+r.sporh || 0), 0) / rows.length;
+        return +avg.toFixed(1);
+      };
+
+      // --------- UNFILTERED MODE (baseline view) ----------
       if (!config.date && !config.dayOfWeek) {
         return (data.driverBaselines ?? []).map((b: any) => {
           const meta: any = byId.get(b.driverId) || {};
-          return { ...b, ...meta };
+
+          const baselineSporh =
+            b.avgSPORH ?? b.avgSporh ?? b.sporh ?? b.avg_sporh ?? b.avgSPorh;
+
+          const avgSPORH =
+            baselineSporh === 0 || baselineSporh
+              ? +(+baselineSporh).toFixed(1)
+              : computeAvgSPORH(b.driverId);
+
+          return { ...b, ...meta, avgSPORH };
         });
       }
 
-      let filtered = data.dailyHistory ?? [];
+      // --------- FILTERED MODE (date or DOW) ----------
+      let filtered = allDaily;
       if (config.date) filtered = filtered.filter((d: any) => d.date === config.date);
       else if (config.dayOfWeek) filtered = filtered.filter((d: any) => d.dayOfWeek === config.dayOfWeek);
 
@@ -271,6 +327,7 @@ export class DriverBaselineComponent {
           ).toFixed(2),
           avgNDPPH: +(rows.reduce((s, r) => s + r.ndpph, 0) / rows.length).toFixed(1),
           avgOvUn: +(rows.reduce((s, r) => s + r.paidVsPlan, 0) / rows.length).toFixed(2),
+          avgSPORH: +(rows.reduce((s, r) => s + (+r.sporh || 0), 0) / rows.length).toFixed(1),
           amPmSplit: meta.amPmSplit ?? '—',
         };
       });
