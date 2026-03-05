@@ -1,179 +1,56 @@
 <section class="driver-shell">
   <header class="header">
-    <h2>Driver Baseline</h2>
-    <p>Baseline performance metrics by driver</p>
-  </header>
-
-  <!-- Compare toggle bar -->
-  <div class="compare-bar">
-    <button (click)="showCompare = !showCompare">
-      {{ showCompare ? 'Hide Compare' : 'Show Compare' }}
-    </button>
-
-    <span class="compare-hint" *ngIf="!compareReady">
-      Select 2–4 drivers to compare ({{ selectedDriverIds.length }}/{{ maxCompareDrivers }})
-    </span>
-  </div>
-
-  <!-- Compare panel -->
-  <div class="compare-panel" *ngIf="showCompare">
-    <div *ngIf="compareReady; else compareEmpty">
-      <!-- Cards -->
-      <div class="compare-cards">
-        <div class="compare-card" *ngFor="let id of selectedDriverIds">
-          <h3>{{ driverName(id) }}</h3>
-
-          <p><strong>Occurrences:</strong> {{ getOccurrences(id) }}</p>
-          <p><strong>% Occurrence:</strong> {{ getPercentOccurrence(id) | number:'1.0-1' }}%</p>
-          <p><strong>Last Driven:</strong> {{ getLastDriven(id) }}</p>
-
-          <div class="service-elements">
-            <strong>Service Elements</strong>
-
-            <table class="mini">
-              <thead>
-                <tr>
-                  <th>Metric</th>
-                  <th>Avg</th>
-                  <th>Last</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Stops</td>
-                  <td>{{ metricAvg(id, 'stops', 0) }}</td>
-                  <td>{{ metricLatest(id, 'stops', 0) }}</td>
-                </tr>
-                <tr>
-                  <td>Miles</td>
-                  <td>{{ metricAvg(id, 'miles', 0) }}</td>
-                  <td>{{ metricLatest(id, 'miles', 0) }}</td>
-                </tr>
-                <tr>
-                  <td>SPM</td>
-                  <td>{{ spmAvg(id) }}</td>
-                  <td>{{ spmLatest(id) }}</td>
-                </tr>
-                <tr>
-                  <td>NDPPH</td>
-                  <td>{{ metricAvg(id, 'ndpph', 1) }}</td>
-                  <td>{{ metricLatest(id, 'ndpph', 1) }}</td>
-                </tr>
-                <tr>
-                  <td>Ov/Un</td>
-                  <td>{{ metricAvg(id, 'paidVsPlan', 2) }}</td>
-                  <td>{{ metricLatest(id, 'paidVsPlan', 2) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chart UNDER cards (single instance) -->
-      <div class="compare-chart">
-        <div class="chart-header">
-          <strong>Comparison Chart</strong>
-
-          <label class="chart-control">
-            Metric
-            <select [(ngModel)]="compareMetric">
-              <option value="ndpph">NDPPH (Avg)</option>
-              <option value="stops">Stops (Avg)</option>
-              <option value="miles">Miles (Avg)</option>
-              <option value="spm">SPM (Avg)</option>
-              <option value="paidVsPlan">Ov/Un (Avg)</option>
-            </select>
-          </label>
-
-          <label class="chart-control">
-            Mode
-            <select [(ngModel)]="compareMode">
-              <option value="absolute">Absolute</option>
-              <option value="delta">Delta vs First</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="bar-chart">
-          <div class="bar-row" *ngFor="let did of selectedDriverIds">
-            <span class="label">{{ driverName(did) }}</span>
-
-            <div class="bar-track">
-              <div
-                class="bar"
-                [class.positive]="chartValue(did) >= 0"
-                [class.negative]="chartValue(did) < 0"
-                [style.width.%]="chartWidth(did)">
-              </div>
-            </div>
-
-            <span class="value">{{ chartValue(did) | number:'1.0-2' }}</span>
-          </div>
-        </div>
-
-        <p class="muted chart-note" *ngIf="compareMode === 'delta'">
-          Baseline = {{ driverName(selectedDriverIds[0]) }}
-        </p>
+    <div class="title-row">
+      <div>
+        <h2>Driver Baseline</h2>
+        <p>Baseline performance metrics by driver</p>
       </div>
     </div>
-
-    <ng-template #compareEmpty>
-      <p class="muted">Select at least two drivers to activate comparison.</p>
-    </ng-template>
-  </div>
+  </header>
 
   <!-- Main table -->
   <section class="card">
-    <table>
+    <table class="kc-table">
       <thead>
         <tr>
-          <th>Select</th>
           <th>Driver</th>
-          <th>Seniority</th>
+          <th class="num">Seniority</th>
           <th>Bid Route</th>
-          <th>Avg Stops</th>
-          <th>Avg Miles</th>
-          <th>Avg SPM</th>
-          <th>Avg NDPPH</th>
-          <th>Avg Ov/Un</th>
+          <th class="num">Stops</th>
+          <th class="num">Miles</th>
+          <th class="num">SPM</th>
+          <th class="num">NDPPH</th>
+          <th class="num">Ov/Un</th>
+          <th class="num">SPORH</th>
           <th>AM / PM</th>
         </tr>
       </thead>
 
       <tbody>
         <ng-container *ngFor="let d of drivers$ | async">
-          <!-- BASE ROW -->
           <tr>
-            <td>
-              <input
-                type="checkbox"
-                [checked]="isSelectedDriver(d.driverId)"
-                (change)="toggleSelectDriver(d.driverId)"
-              />
+            <td class="driver">
+              <button type="button" class="link" (click)="toggleDriver(d.driverId)">
+                {{ d.name }}
+              </button>
             </td>
 
-            <td class="driver clickable" (click)="toggleDriver(d.driverId)">
-              {{ d.name }}
-            </td>
-
-            <td>{{ d.seniority }}</td>
+            <td class="num">{{ d.seniority }}</td>
             <td>{{ d.bidRoute }}</td>
-            <td>{{ d.avgStops }}</td>
-            <td>{{ d.avgMiles }}</td>
-            <td>{{ d.avgSPM }}</td>
+            <td class="num">{{ d.avgStops }}</td>
+            <td class="num">{{ d.avgMiles }}</td>
+            <td class="num">{{ d.avgSPM }}</td>
 
-            <!-- NDPPH WITH BAR -->
-            <td>
-              <div class="metric-cell">
-                <span class="metric-value">{{ d.avgNDPPH }}</span>
-                <div class="bar-track">
+            <td class="num">
+              <div class="metric">
+                <span class="v">{{ d.avgNDPPH }}</span>
+                <div class="mtrack">
                   <div
-                    class="bar-fill"
+                    class="mfill"
                     [ngClass]="{
-                      'bar-good': d.avgNDPPH >= 26,
-                      'bar-warn': d.avgNDPPH >= 23 && d.avgNDPPH < 26,
-                      'bar-bad': d.avgNDPPH < 23
+                      'good': d.avgNDPPH >= 28,
+                      'warn': d.avgNDPPH >= 26 && d.avgNDPPH < 27.99,
+                      'bad': d.avgNDPPH < 26
                     }"
                     [style.width.%]="Math.min((d.avgNDPPH / 30) * 100, 100)">
                   </div>
@@ -181,19 +58,20 @@
               </div>
             </td>
 
-            <!-- OV/UN WITH BAR -->
-            <td>
-              <div class="metric-cell">
-                <span class="metric-value">{{ d.avgOvUn }}</span>
-                <div class="bar-track">
+            <td class="num">{{ d.avgOvUn }}</td>
+
+            <td class="num">
+              <div class="metric">
+                <span class="v">{{ d.avgSPORH ?? '—' }}</span>
+                <div class="mtrack">
                   <div
-                    class="bar-fill"
+                    class="mfill"
                     [ngClass]="{
-                      'bar-good': d.avgOvUn <= -0.2,
-                      'bar-warn': d.avgOvUn > -0.2 && d.avgOvUn <= 0.2,
-                      'bar-bad': d.avgOvUn > 0.2
+                      'good': (d.avgSPORH || 0) >= 17,
+                      'warn': (d.avgSPORH || 0) >= 16 && (d.avgSPORH || 0) < 16.99,
+                      'bad': (d.avgSPORH || 0) < 16
                     }"
-                    [style.width.%]="Math.min(Math.abs(d.avgOvUn) * 50, 100)">
+                    [style.width.%]="Math.min(((d.avgSPORH || 0) / 8) * 100, 100)">
                   </div>
                 </div>
               </div>
@@ -202,33 +80,43 @@
             <td>{{ d.amPmSplit }}</td>
           </tr>
 
-          <!-- DRILL DOWN (Driver -> Routes -> Days) -->
-          <tr *ngIf="expandedDriverId === d.driverId">
-            <td colspan="10" class="drill">
-              <div class="drilldown">
-                <div class="drilldown-header">
-                  <strong>Driver:</strong> {{ d.name }}
-                  <span class="muted">({{ getOccurrences(d.driverId) }} days)</span>
+          <!-- DRILLDOWN -->
+          <tr *ngIf="expandedDriverId === d.driverId" class="drill-row">
+            <td colspan="10">
+              <div class="drill">
+                <div class="drill-head">
+                  <div>
+                    <strong>Driver:</strong> {{ d.name }}
+                    <span class="muted">({{ getOccurrences(d.driverId) }} days)</span>
+                  </div>
                 </div>
 
-                <!-- Level 1: Routes -->
-                <table class="mini">
+                <!-- Level 1: Routes WITH ROLLUPS -->
+                <table class="mini mini-tight">
                   <thead>
                     <tr>
                       <th>Route</th>
-                      <th>Days</th>
-                      <th>% Occ</th>
+                      <th class="num">Days</th>
+                      <th class="num">% Occ</th>
                       <th>Last Driven</th>
+
+                      <!-- ✅ Rollups preview before drill -->
+                      <th class="num">Avg SPM</th>
+                      <th class="num">Avg NDPPH</th>
+                      <th class="num">Ov/Un</th>
+                      <th class="num">Miles</th>
+                      <th class="num">Stops</th>
+                      <th class="num">SPORH</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     <ng-container *ngFor="let rt of getRoutesForDriver(d.driverId)">
-                      <tr [class.primary-driver]="isPrimaryRoute(d.driverId, rt.routeId)">
+                      <tr [class.primary]="isPrimaryRoute(d.driverId, rt.routeId)">
                         <td>
                           <button
                             type="button"
-                            class="route-link"
+                            class="link"
                             (click)="toggleRouteForDriver(d.driverId, rt.routeId)"
                           >
                             {{ rt.routeId }}
@@ -239,37 +127,49 @@
                           </span>
                         </td>
 
-                        <td>{{ rt.days }}</td>
-                        <td>{{ rt.pct | number:'1.0-1' }}%</td>
+                        <td class="num">{{ rt.days }}</td>
+                        <td class="num">{{ rt.pct | number:'1.0-1' }}%</td>
                         <td>{{ rt.lastDriven }}</td>
+
+                        <!-- ✅ Rollups -->
+                        <td class="num">{{ rt.avgSPM }}</td>
+                        <td class="num">{{ rt.avgNDPPH }}</td>
+                        <td class="num">{{ rt.avgOvUn }}</td>
+                        <td class="num">{{ rt.avgMiles }}</td>
+                        <td class="num">{{ rt.avgStops }}</td>
+                        <td class="num">{{ rt.avgSPORH }}</td>
                       </tr>
 
                       <!-- Level 2: Days for selected route -->
                       <tr *ngIf="isRouteExpanded(d.driverId, rt.routeId)">
-                        <td colspan="4">
-                          <table class="mini">
+                        <!-- ✅ colspan updated: 4 -> 10 -->
+                        <td colspan="10">
+                          <table class="mini mini-tight">
                             <thead>
                               <tr>
                                 <th>Date</th>
                                 <th>DOW</th>
-                                <th>Stops</th>
-                                <th>Miles</th>
-                                <th>SPM</th>
-                                <th>NDPPH</th>
-                                <th>Ov/Un</th>
+                                <th class="num">Stops</th>
+                                <th class="num">Miles</th>
+                                <th class="num">SPM</th>
+                                <th class="num">NDPPH</th>
+                                <th class="num">SPORH</th>
+                                <th class="num">Ov/Un</th>
                                 <th>PM</th>
                                 <th>Time</th>
                               </tr>
                             </thead>
+
                             <tbody>
                               <tr *ngFor="let row of getDaysForDriverAndRoute(d.driverId, rt.routeId)">
                                 <td>{{ row.date }}</td>
                                 <td>{{ row.dayOfWeek }}</td>
-                                <td>{{ row.stops }}</td>
-                                <td>{{ row.miles }}</td>
-                                <td>{{ spmForRow(row) }}</td>
-                                <td>{{ row.ndpph }}</td>
-                                <td>{{ row.paidVsPlan }}</td>
+                                <td class="num">{{ row.stops }}</td>
+                                <td class="num">{{ row.miles }}</td>
+                                <td class="num">{{ spmForRow(row) }}</td>
+                                <td class="num">{{ row.ndpph }}</td>
+                                <td class="num">{{ row.sporh ?? '—' }}</td>
+                                <td class="num">{{ row.paidVsPlan }}</td>
                                 <td>{{ row.pm ?? '—' }}</td>
                                 <td>{{ row.time ?? '—' }}</td>
                               </tr>
@@ -288,4 +188,3 @@
     </table>
   </section>
 </section>
-
