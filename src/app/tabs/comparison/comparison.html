@@ -2,22 +2,31 @@
   <header class="header">
     <div>
       <h2>Comparison</h2>
-      <p>Compare drivers against a selected baseline</p>
+      <p>
+        {{
+          baselineMode === 'manual'
+            ? 'Compare route performance against a manual baseline'
+            : 'Compare drivers against a selected baseline'
+        }}
+      </p>
     </div>
 
     <div class="right">
-      <button class="btn ghost" (click)="clearSelectedDrivers()">Clear</button>
+      <button
+        class="btn ghost"
+        (click)="baselineMode === 'manual' ? clearSelectedRoutes() : clearSelectedDrivers()"
+      >
+        Clear
+      </button>
     </div>
   </header>
 
-  <!-- Controls -->
   <section class="card controls">
     <div class="row">
       <label>
         Baseline Type
         <select [(ngModel)]="baselineMode" (change)="onBaselineModeChange(baselineMode)">
           <option value="route">Route Baseline</option>
-          <option value="center">Center Average</option>
           <option value="manual">Manual Baseline</option>
         </select>
       </label>
@@ -36,26 +45,48 @@
       </div>
     </div>
 
-    <!-- Manual baseline inputs -->
     <div class="manual" *ngIf="baselineMode === 'manual'">
       <div class="grid">
-        <label>Stops <input type="number" [(ngModel)]="manualBaseline.stops" (input)="recomputeRowsOnly()" /></label>
-        <label>Miles <input type="number" [(ngModel)]="manualBaseline.miles" (input)="recomputeRowsOnly()" /></label>
-        <label>SPM <input type="number" step="0.01" [(ngModel)]="manualBaseline.spm" (input)="recomputeRowsOnly()" /></label>
-        <label>NDPPH <input type="number" step="0.1" [(ngModel)]="manualBaseline.ndpph" (input)="recomputeRowsOnly()" /></label>
-        <label>Ov/Un <input type="number" step="0.01" [(ngModel)]="manualBaseline.paidVsPlan" (input)="recomputeRowsOnly()" /></label>
-        <label>SPORH <input type="number" step="0.1" [(ngModel)]="manualBaseline.sporh" (input)="recomputeRowsOnly()" /></label>
+        <label>
+          Stops
+          <input type="number" [(ngModel)]="manualBaseline.stops" (input)="recompute()" />
+        </label>
+        <label>
+          Miles
+          <input type="number" [(ngModel)]="manualBaseline.miles" (input)="recompute()" />
+        </label>
+        <label>
+          SPM
+          <input type="number" step="0.01" [(ngModel)]="manualBaseline.spm" (input)="recompute()" />
+        </label>
+        <label>
+          NDPPH
+          <input type="number" step="0.1" [(ngModel)]="manualBaseline.ndpph" (input)="recompute()" />
+        </label>
+        <label>
+          Ov/Un
+          <input type="number" step="0.01" [(ngModel)]="manualBaseline.paidVsPlan" (input)="recompute()" />
+        </label>
+        <label>
+          SPORH
+          <input type="number" step="0.1" [(ngModel)]="manualBaseline.sporh" (input)="recompute()" />
+        </label>
       </div>
     </div>
 
-    <!-- Driver picker -->
     <div class="picker">
       <div class="picker-head">
-        <strong>Drivers</strong>
-        <span class="muted">Pick 2–{{ maxDrivers }} to compare</span>
+        <strong>{{ baselineMode === 'manual' ? 'Routes' : 'Drivers' }}</strong>
+        <span class="muted">
+          {{
+            baselineMode === 'manual'
+              ? 'Pick 2–' + maxRoutes + ' routes to compare'
+              : 'Pick 2–' + maxDrivers + ' drivers to compare'
+          }}
+        </span>
       </div>
 
-      <div class="picker-body">
+      <div class="picker-body" *ngIf="baselineMode !== 'manual'; else manualRoutePicker">
         <select multiple size="10" class="multi">
           <option
             *ngFor="let d of sortedDrivers"
@@ -67,7 +98,6 @@
           </option>
         </select>
 
-        <!-- ✅ Legend copy fixed -->
         <div class="picker-help" *ngIf="baselineMode === 'route' && selectedRouteId">
           <div class="tip">
             <span class="dot"></span>
@@ -75,15 +105,29 @@
           </div>
         </div>
       </div>
+
+      <ng-template #manualRoutePicker>
+        <div class="picker-body">
+          <select multiple size="10" class="multi">
+            <option
+              *ngFor="let r of routesList"
+              [value]="r.routeId"
+              (click)="toggleManualRoute(r.routeId)"
+            >
+              {{ r.routeId }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
     </div>
   </section>
 
-  <!-- Results -->
   <section class="card" *ngIf="rows.length; else empty">
     <div class="results-head">
-      <h3>Performance Delta vs Baseline</h3>
+      <h3>
+        {{ baselineMode === 'manual' ? 'Route Delta vs Manual Baseline' : 'Performance Delta vs Baseline' }}
+      </h3>
 
-      <!-- ✅ Multi-metric selector (1–4) controls chart below -->
       <div class="chart-metric">
         <div class="cm-head">
           <strong>Chart Metrics</strong>
@@ -103,13 +147,13 @@
         </div>
       </div>
     </div>
-    
+
     <div class="baseline-strip" *ngIf="baseline as b">
       <div class="bs-left">
         <span class="pill">Baseline Values</span>
         <span class="name">{{ baselineLabel }}</span>
       </div>
-    
+
       <div class="bs-grid">
         <div class="bs-item"><span class="k">Stops</span><span class="v">{{ b.stops }}</span></div>
         <div class="bs-item"><span class="k">Miles</span><span class="v">{{ b.miles }}</span></div>
@@ -120,11 +164,10 @@
       </div>
     </div>
 
-    <!-- Table -->
     <table class="kc-table">
       <thead>
         <tr>
-          <th>Driver</th>
+          <th>{{ baselineMode === 'manual' ? 'Route' : 'Driver' }}</th>
           <th class="num">Δ Stops</th>
           <th class="num">Δ Miles</th>
           <th class="num">Δ SPM</th>
@@ -138,40 +181,81 @@
         <tr *ngFor="let r of rows" [class.on-route]="r.onRoute">
           <td class="driver">
             <span class="name">{{ r.name }}</span>
+            <span class="badge" *ngIf="baselineMode === 'manual' && r.routeId">Route</span>
             <span class="badge" *ngIf="baselineMode === 'route' && r.onRoute">Drove Route</span>
           </td>
 
-          <td class="num">{{ r.deltas.stops }}</td>
-          <td class="num">{{ r.deltas.miles }}</td>
-          <td class="num">{{ r.deltas.spm }}</td>
-          <td class="num">{{ r.deltas.ndpph }}</td>
-          <td class="num">{{ r.deltas.paidVsPlan }}</td>
-          <td class="num">{{ r.deltas.sporh }}</td>
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.stops)">
+              {{ deltaArrow(r.deltas.stops) }} {{ formatDeltaValue(r.deltas.stops, 'stops') }}
+            </span>
+          </td>
+
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.miles)">
+              {{ deltaArrow(r.deltas.miles) }} {{ formatDeltaValue(r.deltas.miles, 'miles') }}
+            </span>
+          </td>
+
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.spm)">
+              {{ deltaArrow(r.deltas.spm) }} {{ formatDeltaValue(r.deltas.spm, 'spm') }}
+            </span>
+          </td>
+
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.ndpph)">
+              {{ deltaArrow(r.deltas.ndpph) }} {{ formatDeltaValue(r.deltas.ndpph, 'ndpph') }}
+            </span>
+          </td>
+
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.paidVsPlan)">
+              {{ deltaArrow(r.deltas.paidVsPlan) }} {{ formatDeltaValue(r.deltas.paidVsPlan, 'paidVsPlan') }}
+            </span>
+          </td>
+
+          <td class="num">
+            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.sporh)">
+              {{ deltaArrow(r.deltas.sporh) }} {{ formatDeltaValue(r.deltas.sporh, 'sporh') }}
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <!-- ✅ Chart (now renders 1–4 metric sections, driven by selector above) -->
-    <div class="chart">
-      <div class="chart-bars" *ngFor="let metric of selectedChartMetrics">
-        <div class="metric-title">
-          <strong>{{ metricLabel(metric) }}</strong>
-        </div>
+    <div class="chart-unified" *ngIf="selectedChartMetrics.length">
+      <div class="chart-header">
+        <strong>Performance Delta Visualization</strong>
+        <span class="muted">Showing {{ selectedChartMetrics.length }} metric(s)</span>
+      </div>
 
+      <div class="chart-body">
         <div class="chart-row" *ngFor="let r of rows">
-          <span class="label">{{ r.name }}</span>
+          <div class="chart-name">{{ r.name }}</div>
 
-          <div class="track">
-            <div class="zero"></div>
+          <div class="chart-metrics">
             <div
-              class="fill"
-              [class.pos]="chartValueFor(r.driverId, metric) >= 0"
-              [class.neg]="chartValueFor(r.driverId, metric) < 0"
-              [style.width.%]="chartWidthFor(r.driverId, metric)"
-            ></div>
-          </div>
+              class="metric-bar"
+              *ngFor="let metric of selectedChartMetrics"
+              [ngClass]="deltaClass(metricValueFromBaseline(r.deltas, metric))"
+            >
+              <div class="metric-label">{{ metricLabel(metric) }}</div>
 
-          <span class="value">{{ chartValueFor(r.driverId, metric) | number:'1.0-2' }}</span>
+              <div class="track">
+                <div class="zero"></div>
+                <div
+                  class="bar"
+                  [style.left.%]="chartBarLeftFor(r.id, metric)"
+                  [style.width.%]="chartAbsWidthFor(r.id, metric)"
+                ></div>
+              </div>
+
+              <div class="metric-value">
+                {{ formatDeltaValue(metricValueFromBaseline(r.deltas, metric), metric) }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -179,7 +263,11 @@
 
   <ng-template #empty>
     <section class="card empty">
-      Select a baseline and at least two drivers to compare.
+      {{
+        baselineMode === 'manual'
+          ? 'Select a manual baseline and at least two routes to compare.'
+          : 'Select a baseline and at least two drivers to compare.'
+      }}
     </section>
   </ng-template>
 </section>

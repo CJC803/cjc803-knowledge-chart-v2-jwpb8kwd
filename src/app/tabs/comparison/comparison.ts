@@ -13,8 +13,17 @@ type Baseline = {
   miles: number;
   spm: number;
   ndpph: number;
-  paidVsPlan: number; // Ov/Un
+  paidVsPlan: number;
   sporh: number;
+};
+
+type ComparisonRow = {
+  id: string;
+  name: string;
+  routeId?: string | null;
+  driverId?: string | null;
+  onRoute: boolean;
+  deltas: Baseline;
 };
 
 @Component({
@@ -27,14 +36,15 @@ type Baseline = {
 export class ComparisonComponent {
   private dataService = inject(DataService);
 
-  // UI state
   baselineMode: BaselineMode = 'route';
   selectedRouteId: string | null = null;
 
   readonly maxDrivers = 8;
   selectedDriverIds: string[] = [];
 
-  // ✅ Chart metrics (1–4 selectable)
+  readonly maxRoutes = 8;
+  selectedManualRouteIds: string[] = [];
+
   readonly chartMetricOptions: Array<{ key: MetricKey; label: string }> = [
     { key: 'ndpph', label: 'NDPPH' },
     { key: 'stops', label: 'Stops' },
@@ -44,7 +54,7 @@ export class ComparisonComponent {
     { key: 'sporh', label: 'SPORH' },
   ];
 
-  selectedChartMetrics: MetricKey[] = ['ndpph']; // must remain 1–4
+  selectedChartMetrics: MetricKey[] = ['ndpph'];
 
   manualBaseline: Baseline = {
     stops: 120,
@@ -60,13 +70,7 @@ export class ComparisonComponent {
   private driversOnSelectedRoute = new Set<string>();
 
   baseline: Baseline | null = null;
-
-  rows: Array<{
-    driverId: string;
-    name: string;
-    onRoute: boolean;
-    deltas: Baseline;
-  }> = [];
+  rows: ComparisonRow[] = [];
 
   constructor() {
     combineLatest([this.dataService.data$, this.dataService.viewConfig$])
@@ -95,7 +99,6 @@ export class ComparisonComponent {
       .subscribe();
   }
 
-  // ---------- UI actions ----------
   onBaselineModeChange(mode: BaselineMode) {
     this.baselineMode = mode;
     this.recompute();
@@ -125,23 +128,44 @@ export class ComparisonComponent {
     this.recomputeRowsOnly();
   }
 
+  toggleManualRoute(routeId: string) {
+    const idx = this.selectedManualRouteIds.indexOf(routeId);
+
+    if (idx >= 0) {
+      this.selectedManualRouteIds = this.selectedManualRouteIds.filter((id) => id !== routeId);
+      this.recomputeRowsOnly();
+      return;
+    }
+
+    if (this.selectedManualRouteIds.length >= this.maxRoutes) {
+      this.selectedManualRouteIds = [...this.selectedManualRouteIds.slice(1), routeId];
+      this.recomputeRowsOnly();
+      return;
+    }
+
+    this.selectedManualRouteIds = [...this.selectedManualRouteIds, routeId];
+    this.recomputeRowsOnly();
+  }
+
   clearSelectedDrivers() {
     this.selectedDriverIds = [];
     this.recomputeRowsOnly();
   }
 
-  // ✅ Chart metric selection (1–4)
+  clearSelectedRoutes() {
+    this.selectedManualRouteIds = [];
+    this.recomputeRowsOnly();
+  }
+
   toggleChartMetric(metric: MetricKey) {
     const idx = this.selectedChartMetrics.indexOf(metric);
 
-    // remove
     if (idx >= 0) {
-      if (this.selectedChartMetrics.length === 1) return; // must keep at least 1
+      if (this.selectedChartMetrics.length === 1) return;
       this.selectedChartMetrics = this.selectedChartMetrics.filter((m) => m !== metric);
       return;
     }
 
-    // add
     if (this.selectedChartMetrics.length >= 4) return;
     this.selectedChartMetrics = [...this.selectedChartMetrics, metric];
   }
@@ -154,7 +178,47 @@ export class ComparisonComponent {
     return this.chartMetricOptions.find((o) => o.key === metric)?.label ?? metric;
   }
 
-  // ---------- helpers used in template ----------
+  metricValueFromBaseline(obj: Baseline, metric: MetricKey): number {
+    return (obj as any)[metric] ?? 0;
+  }
+
+  deltaClass(value: number): string {
+    if (value > 0) return 'pos';
+    if (value < 0) return 'neg';
+    return 'neutral';
+  }
+
+  deltaArrow(value: number): string {
+    if (value > 0) return '▲';
+    if (value < 0) return '▼';
+    return '—';
+  }
+
+  formatDeltaValue(value: number, metric: MetricKey): string {
+    const decimals = metric === 'stops' || metric === 'miles' ? 1 : 2;
+    const abs = Math.abs(value).toFixed(decimals);
+    if (value > 0) return `+${abs}`;
+    if (value < 0) return `-${abs}`;
+    return Number(0).toFixed(decimals);
+  }
+
+  chartAbsWidthFor(rowId: string, metric: MetricKey) {
+    const vals = this.rows.map((r) => Math.abs(this.metricValueFromBaseline(r.deltas, metric)));
+    const max = Math.max(...vals, 1);
+    const row = this.rows.find((x) => x.id === rowId);
+    if (!row) return 0;
+    const v = Math.abs(this.metricValueFromBaseline(row.deltas, metric));
+    return Math.min((v / max) * 50, 50);
+  }
+
+  chartBarLeftFor(rowId: string, metric: MetricKey) {
+    const row = this.rows.find((x) => x.id === rowId);
+    if (!row) return 50;
+    const v = this.metricValueFromBaseline(row.deltas, metric);
+    const w = this.chartAbsWidthFor(rowId, metric);
+    return v >= 0 ? 50 : 50 - w;
+  }
+
   driverName(driverId: string) {
     const d = this.drivers.find((x) => x.driverId === driverId);
     return d?.name ?? driverId;
@@ -181,21 +245,6 @@ export class ComparisonComponent {
     return list;
   }
 
-  // ✅ chart helpers (metric-aware)
-  chartValueFor(driverId: string, metric: MetricKey) {
-    const r = this.rows.find((x) => x.driverId === driverId);
-    if (!r) return 0;
-    return (r.deltas as any)[metric] ?? 0;
-  }
-
-  chartWidthFor(driverId: string, metric: MetricKey) {
-    const vals = this.rows.map((r) => Math.abs((r.deltas as any)[metric] ?? 0));
-    const max = Math.max(...vals, 1);
-    const v = Math.abs(this.chartValueFor(driverId, metric));
-    return Math.min((v / max) * 100, 100);
-  }
-
-  // ---------- recompute pipeline ----------
   recompute() {
     if (!this.latestData) return;
 
@@ -210,69 +259,144 @@ export class ComparisonComponent {
       return;
     }
 
-    if (this.selectedDriverIds.length < 2) {
-      this.rows = [];
-      return;
-    }
-
     const baseline = this.baseline;
-
     const driverBaselines: any[] = this.latestData.driverBaselines ?? [];
+    const routeBaselines: any[] = this.latestData.routeBaselines ?? [];
     const daily: any[] = this.latestData.dailyHistory ?? [];
 
     const byDriverBaseline = new Map<string, any>();
     driverBaselines.forEach((b: any) => byDriverBaseline.set(b.driverId, b));
 
-    const computeFromDaily = (driverId: string): Baseline | null => {
+    const byRouteBaseline = new Map<string, any>();
+    routeBaselines.forEach((r: any) => {
+      if (r?.routeId) byRouteBaseline.set(r.routeId, r);
+    });
+
+    const computeDriverFromDaily = (driverId: string): Baseline | null => {
       const rows = daily.filter((r) => r.driverId === driverId);
       if (!rows.length) return null;
 
       const stops = avg(rows, 'stops', 0);
       const miles = avg(rows, 'miles', 0);
-      const spm = miles ? +(stops / miles).toFixed(2) : 0;
+      const spm = avgMetric(rows, 'spm', 2, () => (miles ? +(stops / miles).toFixed(2) : 0));
       const ndpph = avg(rows, 'ndpph', 1);
-      const paidVsPlan = avg(rows, 'paidVsPlan', 2);
+      const paidVsPlan = avgMetric(rows, 'paidVsPlan', 2, () => avg(rows, 'ovUn', 2));
       const sporh = avg(rows, 'sporh', 1);
 
       return { stops, miles, spm, ndpph, paidVsPlan, sporh };
     };
 
+    const computeRouteFromDaily = (routeId: string): Baseline | null => {
+      const rows = daily.filter((r) => r.routeId === routeId);
+      if (!rows.length) return null;
+
+      const stops = avg(rows, 'stops', 0);
+      const miles = avg(rows, 'miles', 0);
+      const spm = avgMetric(rows, 'spm', 2, () => (miles ? +(stops / miles).toFixed(2) : 0));
+      const ndpph = avg(rows, 'ndpph', 1);
+      const paidVsPlan = avgMetric(rows, 'paidVsPlan', 2, () => avg(rows, 'ovUn', 2));
+      const sporh = avg(rows, 'sporh', 1);
+
+      return { stops, miles, spm, ndpph, paidVsPlan, sporh };
+    };
+
+    if (this.baselineMode === 'manual') {
+      if (this.selectedManualRouteIds.length < 2) {
+        this.rows = [];
+        return;
+      }
+
+      const rows = this.selectedManualRouteIds
+        .map((routeId) => {
+          const routeBase = byRouteBaseline.get(routeId);
+
+          const compareStats: Baseline | null = routeBase
+            ? {
+                stops: toNum(routeBase?.avgStops ?? routeBase?.stops, 0),
+                miles: toNum(routeBase?.avgMiles ?? routeBase?.miles, 0),
+                spm: toNum(routeBase?.avgSPM ?? routeBase?.spm, 0),
+                ndpph: toNum(routeBase?.avgNDPPH ?? routeBase?.ndpph, 0),
+                paidVsPlan: toNum(routeBase?.avgOvUn ?? routeBase?.paidVsPlan, 0),
+                sporh: pickFirstNumber(
+                  [routeBase?.avgSPORH, routeBase?.avgSporh, routeBase?.sporh],
+                  0
+                ),
+              }
+            : computeRouteFromDaily(routeId);
+
+          if (!compareStats) return null;
+
+          return {
+            id: routeId,
+            routeId,
+            driverId: null,
+            name: routeId,
+            onRoute: false,
+            deltas: {
+              stops: +(compareStats.stops - baseline.stops).toFixed(1),
+              miles: +(compareStats.miles - baseline.miles).toFixed(1),
+              spm: +(compareStats.spm - baseline.spm).toFixed(2),
+              ndpph: +(compareStats.ndpph - baseline.ndpph).toFixed(2),
+              paidVsPlan: +(compareStats.paidVsPlan - baseline.paidVsPlan).toFixed(2),
+              sporh: +(compareStats.sporh - baseline.sporh).toFixed(2),
+            },
+          } as ComparisonRow;
+        })
+        .filter(Boolean) as ComparisonRow[];
+
+      rows.sort((a, b) => a.name.localeCompare(b.name));
+      this.rows = rows;
+      return;
+    }
+
+    if (this.selectedDriverIds.length < 2) {
+      this.rows = [];
+      return;
+    }
+
     const rows = this.selectedDriverIds
       .map((driverId) => {
         const meta = this.drivers.find((d) => d.driverId === driverId) || {};
-        const base = byDriverBaseline.get(driverId);
+        const driverBase = byDriverBaseline.get(driverId);
 
-        const driverStats: Baseline | null = base
+        const compareStats: Baseline | null = driverBase
           ? {
-              stops: toNum(base?.avgStops ?? base?.stops, 0),
-              miles: toNum(base?.avgMiles ?? base?.miles, 0),
-              spm: toNum(base?.avgSPM ?? base?.spm, 0),
-              ndpph: toNum(base?.avgNDPPH ?? base?.ndpph, 0),
-              paidVsPlan: toNum(base?.avgOvUn ?? base?.paidVsPlan, 0),
+              stops: toNum(driverBase?.avgStops ?? driverBase?.stops, 0),
+              miles: toNum(driverBase?.avgMiles ?? driverBase?.miles, 0),
+              spm: toNum(driverBase?.avgSPM ?? driverBase?.spm, 0),
+              ndpph: toNum(driverBase?.avgNDPPH ?? driverBase?.ndpph, 0),
+              paidVsPlan: toNum(driverBase?.avgOvUn ?? driverBase?.paidVsPlan, 0),
               sporh: pickFirstNumber(
-                [base?.avgSPORH, base?.avgSporh, base?.sporh, computeFromDaily(driverId)?.sporh],
+                [
+                  driverBase?.avgSPORH,
+                  driverBase?.avgSporh,
+                  driverBase?.sporh,
+                  computeDriverFromDaily(driverId)?.sporh,
+                ],
                 0
               ),
             }
-          : computeFromDaily(driverId);
+          : computeDriverFromDaily(driverId);
 
-        if (!driverStats) return null;
+        if (!compareStats) return null;
 
         return {
+          id: driverId,
           driverId,
+          routeId: meta.bidRoute ?? null,
           name: meta.name ?? driverId,
           onRoute: this.isDriverOnRoute(driverId),
           deltas: {
-            stops: +(driverStats.stops - baseline.stops).toFixed(1),
-            miles: +(driverStats.miles - baseline.miles).toFixed(1),
-            spm: +(driverStats.spm - baseline.spm).toFixed(2),
-            ndpph: +(driverStats.ndpph - baseline.ndpph).toFixed(2),
-            paidVsPlan: +(driverStats.paidVsPlan - baseline.paidVsPlan).toFixed(2),
-            sporh: +(driverStats.sporh - baseline.sporh).toFixed(2),
+            stops: +(compareStats.stops - baseline.stops).toFixed(1),
+            miles: +(compareStats.miles - baseline.miles).toFixed(1),
+            spm: +(compareStats.spm - baseline.spm).toFixed(2),
+            ndpph: +(compareStats.ndpph - baseline.ndpph).toFixed(2),
+            paidVsPlan: +(compareStats.paidVsPlan - baseline.paidVsPlan).toFixed(2),
+            sporh: +(compareStats.sporh - baseline.sporh).toFixed(2),
           },
-        };
+        } as ComparisonRow;
       })
-      .filter(Boolean) as any[];
+      .filter(Boolean) as ComparisonRow[];
 
     rows.sort((a, b) => {
       if (this.baselineMode === 'route' && this.selectedRouteId) {
@@ -287,6 +411,21 @@ export class ComparisonComponent {
 
     function avg(list: any[], field: string, decimals: number) {
       const n = list.reduce((s, r) => s + toNum(r?.[field], 0), 0) / list.length;
+      return +n.toFixed(decimals);
+    }
+
+    function avgMetric(
+      list: any[],
+      field: string,
+      decimals: number,
+      fallback: () => number
+    ) {
+      const vals = list
+        .map((r) => r?.[field])
+        .filter((v) => Number.isFinite(Number(v)));
+
+      if (!vals.length) return fallback();
+      const n = vals.reduce((s, v) => s + toNum(v, 0), 0) / vals.length;
       return +n.toFixed(decimals);
     }
   }
@@ -328,9 +467,9 @@ export class ComparisonComponent {
 
       const stops = avg(daily, 'stops', 0);
       const miles = avg(daily, 'miles', 0);
-      const spm = miles ? +(stops / miles).toFixed(2) : 0;
+      const spm = avgMetric(daily, 'spm', 2, () => (miles ? +(stops / miles).toFixed(2) : 0));
       const ndpph = avg(daily, 'ndpph', 1);
-      const paidVsPlan = avg(daily, 'paidVsPlan', 2);
+      const paidVsPlan = avgMetric(daily, 'paidVsPlan', 2, () => avg(daily, 'ovUn', 2));
       const sporh = avg(daily, 'sporh', 1);
       return { stops, miles, spm, ndpph, paidVsPlan, sporh };
     }
@@ -354,9 +493,9 @@ export class ComparisonComponent {
 
       const stops = avg(rows, 'stops', 0);
       const miles = avg(rows, 'miles', 0);
-      const spm = miles ? +(stops / miles).toFixed(2) : 0;
+      const spm = avgMetric(rows, 'spm', 2, () => (miles ? +(stops / miles).toFixed(2) : 0));
       const ndpph = avg(rows, 'ndpph', 1);
-      const paidVsPlan = avg(rows, 'paidVsPlan', 2);
+      const paidVsPlan = avgMetric(rows, 'paidVsPlan', 2, () => avg(rows, 'ovUn', 2));
       const sporh = avg(rows, 'sporh', 1);
       return { stops, miles, spm, ndpph, paidVsPlan, sporh };
     }
@@ -366,6 +505,22 @@ export class ComparisonComponent {
     function avg(list: any[], field: string, decimals: number) {
       if (!list.length) return 0;
       const n = list.reduce((s, r) => s + toNum(r?.[field], 0), 0) / list.length;
+      return +n.toFixed(decimals);
+    }
+
+    function avgMetric(
+      list: any[],
+      field: string,
+      decimals: number,
+      fallback: () => number
+    ) {
+      if (!list.length) return 0;
+      const vals = list
+        .map((r) => r?.[field])
+        .filter((v) => Number.isFinite(Number(v)));
+
+      if (!vals.length) return fallback();
+      const n = vals.reduce((s, v) => s + toNum(v, 0), 0) / vals.length;
       return +n.toFixed(decimals);
     }
 
@@ -381,25 +536,36 @@ export class ComparisonComponent {
   }
 
   get routesList(): any[] {
-    return (this.latestData?.routeBaselines ?? []).slice();
+    const baselineRoutes = (this.latestData?.routeBaselines ?? [])
+      .map((r: any) => r?.routeId)
+      .filter((v: any) => !!v);
+
+    const dailyRoutes = (this.latestData?.dailyHistory ?? [])
+      .map((r: any) => r?.routeId)
+      .filter((v: any) => !!v);
+
+    const uniqueRouteIds = [...new Set([...baselineRoutes, ...dailyRoutes])].sort((a, b) =>
+      String(a).localeCompare(String(b))
+    );
+
+    return uniqueRouteIds.map((routeId) => ({ routeId }));
   }
 
   get baselineLabel(): string {
     if (this.baselineMode === 'center') return 'Center Average';
     if (this.baselineMode === 'manual') return 'Manual Baseline';
-    if (this.baselineMode === 'route')
+    if (this.baselineMode === 'route') {
       return this.selectedRouteId ? `Route: ${this.selectedRouteId}` : 'Route Baseline';
+    }
     return 'Baseline';
   }
 }
 
-/** Convert to number safely; fallback if NaN/Infinity/null/undefined */
 function toNum(value: any, fallback = 0): number {
   const n = Number(value);
   return Number.isFinite(n) ? n : fallback;
 }
 
-/** Pick first finite number from candidates */
 function pickFirstNumber(candidates: any[], fallback = 0): number {
   for (const c of candidates) {
     const n = Number(c);
