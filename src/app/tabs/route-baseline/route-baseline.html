@@ -38,18 +38,8 @@
               <td class="num">{{ getOccurrences(r.routeId) }}</td>
               <td>{{ getLastDriven(r.routeId) }}</td>
 
-              <!-- Avg SPM -->
-              <td class="num">
-                <div class="metric">
-                  <span class="v">{{ r.avgSPM }}</span>
-                  <div class="mtrack">
-                    <div
-                      class="mfill neutral"
-                      [style.width.%]="Math.min((r.avgSPM / 25) * 100, 100)">
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <!-- Avg SPM (plain stat only) -->
+              <td class="num">{{ r.avgSPM }}</td>
 
               <!-- Avg NDPPH -->
               <td class="num">
@@ -113,8 +103,6 @@
                         <th class="num">Days</th>
                         <th class="num">% Occ</th>
                         <th>Last Driven</th>
-
-                        <!-- rollups -->
                         <th class="num">Avg NDPPH</th>
                         <th class="num">Avg SPM</th>
                         <th class="num">Ov/Un</th>
@@ -144,8 +132,6 @@
                           <td class="num">{{ dr.days }}</td>
                           <td class="num">{{ dr.pct | number:'1.0-1' }}%</td>
                           <td>{{ dr.lastDriven }}</td>
-
-                          <!-- rollups -->
                           <td class="num">{{ dr.avgNDPPH }}</td>
                           <td class="num">{{ dr.avgSPM }}</td>
                           <td class="num">{{ dr.avgOvUn }}</td>
