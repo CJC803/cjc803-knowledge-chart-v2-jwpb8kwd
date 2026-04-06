@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataService } from '../../services/data';
+import { DataService, ViewConfig } from '../../services/data';
 
 type DriverRollup = {
   driverId: string;
@@ -17,6 +17,21 @@ type DriverRollup = {
   avgNDPPH: number;
   avgOvUn: number;
   avgSPORH: number | null;
+};
+
+type RouteRow = {
+  routeId: string;
+  isBidRoute: boolean;
+  runs365: number;
+  filteredRuns: number;
+  sampleDays: number;
+  avgStops: number | null;
+  avgMiles: number | null;
+  avgSPM: number | null;
+  avgNDPPH: number | null;
+  avgOvUn: number | null;
+  sporh: number | null;
+  ruralHardToCover: boolean;
 };
 
 @Component({
@@ -116,7 +131,7 @@ export class RouteBaselineComponent {
 
       const avgSPM = this.safeSPM(rws);
       const avgNDPPH = +this.avg(rws, 'ndpph', 1).toFixed(1);
-      const avgOvUn = +this.avg(rws, 'paidVsPlan', 2).toFixed(2);
+      const avgOvUn = +this.avgOvUn(rws).toFixed(2);
 
       // SPORH might not exist in every row
       const sporhVals = rws.map((x) => this.toNum(x?.sporh, NaN)).filter((n) => Number.isFinite(n));
@@ -157,45 +172,180 @@ export class RouteBaselineComponent {
   // ---------- Routes stream ----------
   routes$ = combineLatest([this.dataService.data$, this.dataService.viewConfig$]).pipe(
     map(([data, config]) => {
-      if (!data) return [];
+      if (!data) return [] as RouteRow[];
 
-      // If no filter, use precomputed baselines
-      if (!config.date && !config.dayOfWeek) return data.routeBaselines ?? [];
+      const allRows = data.dailyHistory ?? [];
+      const routesMeta = data.routes ?? [];
+      const filteredRows = this.applyFilters(allRows, config);
+      const bidRoutes = new Set(
+        routesMeta.filter((r: any) => !!r?.isBidRoute).map((r: any) => r.routeId as string)
+      );
 
-      // Else compute from filtered daily rows (date/dayOfWeek)
-      let filtered = data.dailyHistory ?? [];
-      if (config.date) filtered = filtered.filter((d: any) => d.date === config.date);
-      else if (config.dayOfWeek) filtered = filtered.filter((d: any) => d.dayOfWeek === config.dayOfWeek);
-
-      const grouped = new Map<string, any[]>();
-      filtered.forEach((r: any) => {
-        if (!grouped.has(r.routeId)) grouped.set(r.routeId, []);
-        grouped.get(r.routeId)!.push(r);
+      const rowsByRoute = new Map<string, any[]>();
+      allRows.forEach((r: any) => {
+        if (!rowsByRoute.has(r.routeId)) rowsByRoute.set(r.routeId, []);
+        rowsByRoute.get(r.routeId)!.push(r);
       });
 
-      return Array.from(grouped.entries()).map(([routeId, rows]) => {
-        const avgStops = Math.round(this.avg(rows, 'stops'));
-        const avgMiles = Math.round(this.avg(rows, 'miles'));
-        const avgSPM = this.safeSPM(rows);
-        const avgNDPPH = +this.avg(rows, 'ndpph', 1).toFixed(1);
-        const avgOvUn = +this.avg(rows, 'paidVsPlan', 2).toFixed(2);
+      const filteredByRoute = new Map<string, any[]>();
+      filteredRows.forEach((r: any) => {
+        if (!filteredByRoute.has(r.routeId)) filteredByRoute.set(r.routeId, []);
+        filteredByRoute.get(r.routeId)!.push(r);
+      });
 
-        const sporhVals = rows.map((x) => this.toNum(x?.sporh, NaN)).filter((n) => Number.isFinite(n));
+      const latestDate = this.latestDate(allRows);
+      const startWindow = this.shiftDays(latestDate, -364);
+
+      const routes: RouteRow[] = Array.from(rowsByRoute.entries()).map(([routeId, allRouteRows]) => {
+        const routeFilteredRows = filteredByRoute.get(routeId) ?? [];
+        const routeSPM = this.safeSPM(allRouteRows);
+        const runs365 = allRouteRows.filter((d) => {
+          const date = this.parseDate(d?.date);
+          if (!date || !latestDate || !startWindow) return false;
+          return date >= startWindow && date <= latestDate;
+        }).length;
+
+        const filteredRuns = routeFilteredRows.length;
+
+        if (!routeFilteredRows.length) {
+          return {
+            routeId,
+            isBidRoute: bidRoutes.has(routeId),
+            runs365,
+            filteredRuns,
+            sampleDays: 0,
+            avgStops: null,
+            avgMiles: null,
+            avgSPM: null,
+            avgNDPPH: null,
+            avgOvUn: null,
+            sporh: null,
+            ruralHardToCover: routeSPM < 1.6,
+          };
+        }
+
+        const avgStops = Math.round(this.avg(routeFilteredRows, 'stops'));
+        const avgMiles = Math.round(this.avg(routeFilteredRows, 'miles'));
+        const avgSPM = this.safeSPM(routeFilteredRows);
+        const avgNDPPH = +this.avg(routeFilteredRows, 'ndpph', 1).toFixed(1);
+        const avgOvUn = +this.avgOvUn(routeFilteredRows).toFixed(2);
+
+        const sporhVals = routeFilteredRows
+          .map((x) => this.toNum(x?.sporh, NaN))
+          .filter((n) => Number.isFinite(n));
         const sporh =
-          sporhVals.length ? +((sporhVals.reduce((s, v) => s + v, 0) / sporhVals.length).toFixed(1)) : 0;
+          sporhVals.length ? +((sporhVals.reduce((s, v) => s + v, 0) / sporhVals.length).toFixed(1)) : null;
 
         return {
           routeId,
+          isBidRoute: bidRoutes.has(routeId),
+          runs365,
+          filteredRuns,
+          sampleDays: routeFilteredRows.length,
           avgStops,
           avgMiles,
           avgSPM,
           avgNDPPH,
           avgOvUn,
           sporh,
+          ruralHardToCover: routeSPM < 1.6,
         };
       });
+
+      routes.sort((a, b) => b.runs365 - a.runs365 || a.routeId.localeCompare(b.routeId));
+      return routes;
     })
   );
+
+  private applyFilters(rows: any[], config: ViewConfig) {
+    return rows.filter((row) => {
+      const date = this.parseDate(row?.date);
+      if (!date) return false;
+
+      if (config.startDate) {
+        const start = this.parseDate(config.startDate);
+        if (start && date < start) return false;
+      }
+
+      if (config.endDate) {
+        const end = this.parseDate(config.endDate);
+        if (end && date > end) return false;
+      }
+
+      if (config.dayOfWeek && row?.dayOfWeek !== config.dayOfWeek) return false;
+
+      if (config.excludePeak && this.isPeakSeason(date)) return false;
+      if (config.excludeSupervisedDays && !!row?.onCarSupervisor) return false;
+
+      return true;
+    });
+  }
+
+  private parseDate(value: string | null | undefined): Date | null {
+    if (!value) return null;
+    const d = new Date(`${value}T00:00:00`);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  private latestDate(rows: any[]): Date | null {
+    const dates = rows
+      .map((r) => this.parseDate(r?.date))
+      .filter((d): d is Date => !!d)
+      .sort((a, b) => b.getTime() - a.getTime());
+    return dates[0] ?? null;
+  }
+
+  private shiftDays(date: Date | null, days: number): Date | null {
+    if (!date) return null;
+    const next = new Date(date);
+    next.setDate(next.getDate() + days);
+    return next;
+  }
+
+  private isoWeek(date: Date): number {
+    const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dayNum = target.getUTCDay() || 7;
+    target.setUTCDate(target.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+    return Math.ceil(((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+  }
+
+  private isPeakSeason(date: Date): boolean {
+    const week = this.isoWeek(date);
+    return week >= 40 || week <= 2;
+  }
+
+  showChildColor(n: number): boolean {
+    return n >= 3;
+  }
+
+  showParentColor(n: number): boolean {
+    return n > 6;
+  }
+
+  barWidth(value: number | null | undefined, max: number): number {
+    const v = Math.abs(this.toNum(value, 0));
+    return Math.min((v / max) * 100, 100);
+  }
+
+  stopsClass(value: number): string {
+    if (value >= 130) return 'good';
+    if (value >= 110) return 'warn';
+    return 'bad';
+  }
+
+  ovUnClass(value: number): string {
+    if (value >= 0) return 'good';
+    if (value >= -1) return 'warn';
+    return 'bad';
+  }
+
+  sporhClass(value: number | null): string {
+    const v = this.toNum(value, 0);
+    if (v >= 17) return 'good';
+    if (v >= 16) return 'warn';
+    return 'bad';
+  }
 
   // ---------- utils ----------
   private toNum(value: any, fallback = 0): number {
@@ -214,5 +364,11 @@ export class RouteBaselineComponent {
     const stops = rows.reduce((s, r) => s + this.toNum(r?.stops, 0), 0);
     const miles = rows.reduce((s, r) => s + this.toNum(r?.miles, 0), 0);
     return miles ? +(stops / miles).toFixed(2) : 0;
+  }
+
+  private avgOvUn(rows: any[]): number {
+    if (!rows.length) return 0;
+    const total = rows.reduce((sum, row) => sum + this.toNum(row?.ovUn ?? row?.paidVsPlan, 0), 0);
+    return total / rows.length;
   }
 }
