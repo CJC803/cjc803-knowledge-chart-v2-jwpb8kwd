@@ -37,7 +37,21 @@
 
             <td class="num">{{ d.seniority }}</td>
             <td>{{ d.bidRoute }}</td>
-            <td class="num">{{ d.avgStops }}</td>
+            <td class="num">
+              <ng-container *ngIf="showParentColor(d.sampleDays); else parentStopsPlain">
+                <div class="metric">
+                  <span class="v">{{ d.avgStops }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="stopsClass(d.avgStops)"
+                      [style.width.%]="barWidth(d.avgStops, 180)">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #parentStopsPlain>{{ d.avgStops }}</ng-template>
+            </td>
             <td class="num">{{ d.avgMiles }}</td>
             <td class="num">{{ d.avgSPM }}</td>
 
@@ -58,10 +72,24 @@
               </div>
             </td>
 
-            <td class="num">{{ d.avgOvUn }}</td>
+            <td class="num">
+              <ng-container *ngIf="showParentColor(d.sampleDays); else parentOvUnPlain">
+                <div class="metric">
+                  <span class="v">{{ d.avgOvUn }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="ovUnClass(d.avgOvUn)"
+                      [style.width.%]="barWidth(d.avgOvUn, 3)">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #parentOvUnPlain>{{ d.avgOvUn }}</ng-template>
+            </td>
 
             <td class="num">
-              <div class="metric">
+              <div class="metric" *ngIf="showParentColor(d.sampleDays); else parentSporhPlain">
                 <span class="v">{{ d.avgSPORH ?? '—' }}</span>
                 <div class="mtrack">
                   <div
@@ -75,6 +103,7 @@
                   </div>
                 </div>
               </div>
+              <ng-template #parentSporhPlain>{{ d.avgSPORH ?? '—' }}</ng-template>
             </td>
 
             <td>{{ d.amPmSplit }}</td>

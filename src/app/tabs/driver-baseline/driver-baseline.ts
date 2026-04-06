@@ -178,7 +178,7 @@ export class DriverBaselineComponent {
       const avgStops = round(avg(rws, 'stops'), 0);
       const avgMiles = round(avg(rws, 'miles'), 0);
       const avgNDPPH = round(avg(rws, 'ndpph'), 1);
-      const avgOvUn = round(avg(rws, 'paidVsPlan'), 2);
+      const avgOvUn = round(avgOvUnFromRows(rws), 2);
       const avgSPORH = round(avg(rws, 'sporh'), 1);
 
       const totalStops = rws.reduce((s, r) => s + (+r.stops || 0), 0);
@@ -211,6 +211,12 @@ export class DriverBaselineComponent {
     function round(n: number, decimals: number) {
       if (!Number.isFinite(n)) return 0;
       return +n.toFixed(decimals);
+    }
+
+    function avgOvUnFromRows(list: any[]) {
+      if (!list.length) return 0;
+      const total = list.reduce((sum, row) => sum + (+row.ovUn || +row.paidVsPlan || 0), 0);
+      return total / list.length;
     }
   }
 
@@ -314,6 +320,10 @@ export class DriverBaselineComponent {
     return n > 6;
   }
 
+  showParentColor(n: number): boolean {
+    return n > 6;
+  }
+
   barWidth(value: number | null | undefined, max: number): number {
     const v = Math.abs(Number(value) || 0);
     return Math.min((v / max) * 100, 100);
@@ -355,6 +365,11 @@ export class DriverBaselineComponent {
 
       // --------- UNFILTERED MODE (baseline view) ----------
       if (!config.startDate && !config.endDate && !config.dayOfWeek && !config.excludePeak) {
+        const daysByDriver = new Map<string, number>();
+        allDaily.forEach((row: any) => {
+          daysByDriver.set(row.driverId, (daysByDriver.get(row.driverId) ?? 0) + 1);
+        });
+
         return (data.driverBaselines ?? []).map((b: any) => {
           const meta: any = byId.get(b.driverId) || {};
 
@@ -366,7 +381,7 @@ export class DriverBaselineComponent {
               ? +(+baselineSporh).toFixed(1)
               : computeAvgSPORH(b.driverId);
 
-          return { ...b, ...meta, avgSPORH };
+          return { ...b, ...meta, avgSPORH, sampleDays: daysByDriver.get(b.driverId) ?? 0 };
         });
       }
 
@@ -395,6 +410,7 @@ export class DriverBaselineComponent {
           avgNDPPH: +(rows.reduce((s, r) => s + r.ndpph, 0) / rows.length).toFixed(1),
           avgOvUn: +(rows.reduce((s, r) => s + (+r.ovUn || +r.paidVsPlan || 0), 0) / rows.length).toFixed(2),
           avgSPORH: +(rows.reduce((s, r) => s + (+r.sporh || 0), 0) / rows.length).toFixed(1),
+          sampleDays: rows.length,
           amPmSplit: meta.amPmSplit ?? '—',
         };
       });

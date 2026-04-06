@@ -24,6 +24,7 @@ type RouteRow = {
   isBidRoute: boolean;
   runs365: number;
   filteredRuns: number;
+  sampleDays: number;
   avgStops: number | null;
   avgMiles: number | null;
   avgSPM: number | null;
@@ -130,7 +131,7 @@ export class RouteBaselineComponent {
 
       const avgSPM = this.safeSPM(rws);
       const avgNDPPH = +this.avg(rws, 'ndpph', 1).toFixed(1);
-      const avgOvUn = +this.avg(rws, 'paidVsPlan', 2).toFixed(2);
+      const avgOvUn = +this.avgOvUn(rws).toFixed(2);
 
       // SPORH might not exist in every row
       const sporhVals = rws.map((x) => this.toNum(x?.sporh, NaN)).filter((n) => Number.isFinite(n));
@@ -212,6 +213,7 @@ export class RouteBaselineComponent {
             isBidRoute: bidRoutes.has(routeId),
             runs365,
             filteredRuns,
+            sampleDays: 0,
             avgStops: null,
             avgMiles: null,
             avgSPM: null,
@@ -226,7 +228,7 @@ export class RouteBaselineComponent {
         const avgMiles = Math.round(this.avg(routeFilteredRows, 'miles'));
         const avgSPM = this.safeSPM(routeFilteredRows);
         const avgNDPPH = +this.avg(routeFilteredRows, 'ndpph', 1).toFixed(1);
-        const avgOvUn = +this.avg(routeFilteredRows, 'ovUn', 2).toFixed(2);
+        const avgOvUn = +this.avgOvUn(routeFilteredRows).toFixed(2);
 
         const sporhVals = routeFilteredRows
           .map((x) => this.toNum(x?.sporh, NaN))
@@ -239,6 +241,7 @@ export class RouteBaselineComponent {
           isBidRoute: bidRoutes.has(routeId),
           runs365,
           filteredRuns,
+          sampleDays: routeFilteredRows.length,
           avgStops,
           avgMiles,
           avgSPM,
@@ -316,6 +319,10 @@ export class RouteBaselineComponent {
     return n > 6;
   }
 
+  showParentColor(n: number): boolean {
+    return n > 6;
+  }
+
   barWidth(value: number | null | undefined, max: number): number {
     const v = Math.abs(this.toNum(value, 0));
     return Math.min((v / max) * 100, 100);
@@ -357,5 +364,11 @@ export class RouteBaselineComponent {
     const stops = rows.reduce((s, r) => s + this.toNum(r?.stops, 0), 0);
     const miles = rows.reduce((s, r) => s + this.toNum(r?.miles, 0), 0);
     return miles ? +(stops / miles).toFixed(2) : 0;
+  }
+
+  private avgOvUn(rows: any[]): number {
+    if (!rows.length) return 0;
+    const total = rows.reduce((sum, row) => sum + this.toNum(row?.ovUn ?? row?.paidVsPlan, 0), 0);
+    return total / rows.length;
   }
 }
