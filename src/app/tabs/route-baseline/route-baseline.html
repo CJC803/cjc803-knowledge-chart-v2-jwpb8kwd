@@ -47,24 +47,7 @@
               <!-- Avg SPM (plain stat only) -->
               <td class="num">{{ r.avgSPM ?? '—' }}</td>
 
-              <!-- Avg NDPPH -->
-              <td class="num">
-                <div class="metric" *ngIf="r.avgNDPPH !== null; else noNdpph">
-                  <span class="v">{{ r.avgNDPPH }}</span>
-                  <div class="mtrack">
-                    <div
-                      class="mfill"
-                      [ngClass]="{
-                        'good': r.avgNDPPH >= 28,
-                        'warn': r.avgNDPPH >= 26 && r.avgNDPPH < 27.99,
-                        'bad': r.avgNDPPH < 26
-                      }"
-                      [style.width.%]="Math.min((r.avgNDPPH / 30) * 100, 100)">
-                    </div>
-                  </div>
-                </div>
-                <ng-template #noNdpph>—</ng-template>
-              </td>
+              <td class="num">{{ r.avgNDPPH ?? '—' }}</td>
 
               <td class="num">
                 <ng-container *ngIf="r.avgOvUn !== null && showParentColor(r.sampleDays); else routeOvUnPlain">

@@ -55,22 +55,7 @@
             <td class="num">{{ d.avgMiles }}</td>
             <td class="num">{{ d.avgSPM }}</td>
 
-            <td class="num">
-              <div class="metric">
-                <span class="v">{{ d.avgNDPPH }}</span>
-                <div class="mtrack">
-                  <div
-                    class="mfill"
-                    [ngClass]="{
-                      'good': d.avgNDPPH >= 28,
-                      'warn': d.avgNDPPH >= 26 && d.avgNDPPH < 27.99,
-                      'bad': d.avgNDPPH < 26
-                    }"
-                    [style.width.%]="Math.min((d.avgNDPPH / 30) * 100, 100)">
-                  </div>
-                </div>
-              </div>
-            </td>
+            <td class="num">{{ d.avgNDPPH }}</td>
 
             <td class="num">
               <ng-container *ngIf="showParentColor(d.sampleDays); else parentOvUnPlain">
