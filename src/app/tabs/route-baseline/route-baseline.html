@@ -15,6 +15,7 @@
         <thead>
           <tr>
             <th>Route</th>
+            <th>Bid?</th>
             <th class="num">Runs (Last 365 Days)</th>
             <th class="num">Runs (Current Filters)</th>
             <th>Last Driven</th>
@@ -34,6 +35,9 @@
                 <button type="button" class="link" (click)="toggleRoute(r.routeId)">
                   {{ r.routeId }}
                 </button>
+              </td>
+              <td>
+                <input type="checkbox" [checked]="r.isBidRoute" disabled aria-label="Bid route indicator" />
               </td>
 
               <td class="num">{{ r.runs365 }}</td>
@@ -90,14 +94,27 @@
 
             <!-- Drilldown row -->
             <tr *ngIf="expandedRouteId === r.routeId" class="drill-row">
-              <td colspan="10">
+              <td colspan="11">
                 <div class="drill">
                   <div class="drill-head">
                     <div>
                       <strong>Route:</strong> {{ r.routeId }}
                       <span class="muted">({{ getOccurrences(r.routeId) }} days)</span>
+                      <span class="badge" *ngIf="r.ruralHardToCover">Rural SPM - harder to cover</span>
                     </div>
                   </div>
+
+                  <section class="mini" style="margin-bottom: 12px;">
+                    <div><strong>Coverage Recommendation</strong></div>
+                    <div style="margin-top: 6px;">
+                      <strong>Best fit now:</strong> {{ r.recommendation.bestFitDriver }}
+                      <span class="muted"> — {{ r.recommendation.bestFitReason }}</span>
+                    </div>
+                    <div style="margin-top: 4px;">
+                      <strong>Development option:</strong> {{ r.recommendation.developmentDriver }}
+                      <span class="muted"> — {{ r.recommendation.developmentReason }}</span>
+                    </div>
+                  </section>
 
                   <!-- Level 1: Drivers (NOW with rollups before expanding) -->
                   <table class="mini mini-tight">
