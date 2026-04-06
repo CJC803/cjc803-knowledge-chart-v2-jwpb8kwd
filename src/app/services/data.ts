@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 export type ViewConfig = {
-  date: string | null;
+  startDate: string | null;
+  endDate: string | null;
   dayOfWeek: string | null;
+  excludePeak: boolean;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -13,8 +15,10 @@ export class DataService {
   data$ = this.dataSubject.asObservable();
 
   private viewConfigSubject = new BehaviorSubject<ViewConfig>({
-    date: null,
+    startDate: null,
+    endDate: null,
     dayOfWeek: null,
+    excludePeak: false,
   });
   viewConfig$ = this.viewConfigSubject.asObservable();
 
@@ -35,9 +39,14 @@ export class DataService {
     });
   }
 
-  setDate(date: string | null) {
+  setStartDate(startDate: string | null) {
     const current = this.viewConfigSubject.value;
-    this.viewConfigSubject.next({ ...current, date });
+    this.viewConfigSubject.next({ ...current, startDate });
+  }
+
+  setEndDate(endDate: string | null) {
+    const current = this.viewConfigSubject.value;
+    this.viewConfigSubject.next({ ...current, endDate });
   }
 
   setDayOfWeek(dayOfWeek: string | null) {
@@ -45,7 +54,17 @@ export class DataService {
     this.viewConfigSubject.next({ ...current, dayOfWeek });
   }
 
+  setExcludePeak(excludePeak: boolean) {
+    const current = this.viewConfigSubject.value;
+    this.viewConfigSubject.next({ ...current, excludePeak });
+  }
+
   resetFilters() {
-    this.viewConfigSubject.next({ date: null, dayOfWeek: null });
+    this.viewConfigSubject.next({
+      startDate: null,
+      endDate: null,
+      dayOfWeek: null,
+      excludePeak: false,
+    });
   }
 }

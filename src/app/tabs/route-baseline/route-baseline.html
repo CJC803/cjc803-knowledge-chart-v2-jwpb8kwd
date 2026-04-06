@@ -15,7 +15,8 @@
         <thead>
           <tr>
             <th>Route</th>
-            <th class="num">Occ</th>
+            <th class="num">Runs (Last 365 Days)</th>
+            <th class="num">Runs (Current Filters)</th>
             <th>Last Driven</th>
             <th class="num">Avg SPM</th>
             <th class="num">Avg NDPPH</th>
@@ -35,15 +36,16 @@
                 </button>
               </td>
 
-              <td class="num">{{ getOccurrences(r.routeId) }}</td>
+              <td class="num">{{ r.runs365 }}</td>
+              <td class="num">{{ r.filteredRuns }} ({{ r.filteredPct | number:'1.0-1' }}%)</td>
               <td>{{ getLastDriven(r.routeId) }}</td>
 
               <!-- Avg SPM (plain stat only) -->
-              <td class="num">{{ r.avgSPM }}</td>
+              <td class="num">{{ r.avgSPM ?? '—' }}</td>
 
               <!-- Avg NDPPH -->
               <td class="num">
-                <div class="metric">
+                <div class="metric" *ngIf="r.avgNDPPH !== null; else noNdpph">
                   <span class="v">{{ r.avgNDPPH }}</span>
                   <div class="mtrack">
                     <div
@@ -57,17 +59,18 @@
                     </div>
                   </div>
                 </div>
+                <ng-template #noNdpph>—</ng-template>
               </td>
 
               <!-- Ov/Un (plain) -->
-              <td class="num">{{ r.avgOvUn }}</td>
+              <td class="num">{{ r.avgOvUn ?? '—' }}</td>
 
-              <td class="num">{{ r.avgMiles }}</td>
-              <td class="num">{{ r.avgStops }}</td>
+              <td class="num">{{ r.avgMiles ?? '—' }}</td>
+              <td class="num">{{ r.avgStops ?? '—' }}</td>
 
               <!-- SPORH (bar + color-coded) -->
               <td class="num">
-                <div class="metric">
+                <div class="metric" *ngIf="r.sporh !== null; else noSporh">
                   <span class="v">{{ r.sporh }}</span>
                   <div class="mtrack">
                     <div
@@ -81,12 +84,13 @@
                     </div>
                   </div>
                 </div>
+                <ng-template #noSporh>—</ng-template>
               </td>
             </tr>
 
             <!-- Drilldown row -->
             <tr *ngIf="expandedRouteId === r.routeId" class="drill-row">
-              <td colspan="9">
+              <td colspan="10">
                 <div class="drill">
                   <div class="drill-head">
                     <div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataService } from '../../services/data';
+import { DataService, ViewConfig } from '../../services/data';
 
 @Component({
   selector: 'app-driver-baseline',
@@ -269,6 +269,46 @@ export class DriverBaselineComponent {
     return spm ? spm.toFixed(2) : '—';
   }
 
+  private parseDate(value: string | null | undefined): Date | null {
+    if (!value) return null;
+    const d = new Date(`${value}T00:00:00`);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  private isoWeek(date: Date): number {
+    const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dayNum = target.getUTCDay() || 7;
+    target.setUTCDate(target.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+    return Math.ceil(((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+  }
+
+  private isPeakSeason(date: Date): boolean {
+    const week = this.isoWeek(date);
+    return week >= 40 || week <= 2;
+  }
+
+  private applyFilters(rows: any[], config: ViewConfig) {
+    return rows.filter((row) => {
+      const date = this.parseDate(row?.date);
+      if (!date) return false;
+
+      if (config.startDate) {
+        const start = this.parseDate(config.startDate);
+        if (start && date < start) return false;
+      }
+
+      if (config.endDate) {
+        const end = this.parseDate(config.endDate);
+        if (end && date > end) return false;
+      }
+
+      if (config.dayOfWeek && row?.dayOfWeek !== config.dayOfWeek) return false;
+      if (config.excludePeak && this.isPeakSeason(date)) return false;
+      return true;
+    });
+  }
+
   // ---------- Drivers stream for main table ----------
   drivers$ = combineLatest([this.dataService.data$, this.dataService.viewConfig$]).pipe(
     map(([data, config]) => {
@@ -285,7 +325,7 @@ export class DriverBaselineComponent {
       };
 
       // --------- UNFILTERED MODE (baseline view) ----------
-      if (!config.date && !config.dayOfWeek) {
+      if (!config.startDate && !config.endDate && !config.dayOfWeek && !config.excludePeak) {
         return (data.driverBaselines ?? []).map((b: any) => {
           const meta: any = byId.get(b.driverId) || {};
 
@@ -301,10 +341,8 @@ export class DriverBaselineComponent {
         });
       }
 
-      // --------- FILTERED MODE (date or DOW) ----------
-      let filtered = allDaily;
-      if (config.date) filtered = filtered.filter((d: any) => d.date === config.date);
-      else if (config.dayOfWeek) filtered = filtered.filter((d: any) => d.dayOfWeek === config.dayOfWeek);
+      // --------- FILTERED MODE ----------
+      const filtered = this.applyFilters(allDaily, config);
 
       const grouped = new Map<string, any[]>();
       filtered.forEach((d: any) => {
@@ -326,7 +364,7 @@ export class DriverBaselineComponent {
             (rows.reduce((s, r) => s + r.miles, 0) || 1)
           ).toFixed(2),
           avgNDPPH: +(rows.reduce((s, r) => s + r.ndpph, 0) / rows.length).toFixed(1),
-          avgOvUn: +(rows.reduce((s, r) => s + r.paidVsPlan, 0) / rows.length).toFixed(2),
+          avgOvUn: +(rows.reduce((s, r) => s + (+r.ovUn || +r.paidVsPlan || 0), 0) / rows.length).toFixed(2),
           avgSPORH: +(rows.reduce((s, r) => s + (+r.sporh || 0), 0) / rows.length).toFixed(1),
           amPmSplit: meta.amPmSplit ?? '—',
         };
