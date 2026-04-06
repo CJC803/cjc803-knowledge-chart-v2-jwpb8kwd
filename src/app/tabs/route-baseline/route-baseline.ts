@@ -272,6 +272,7 @@ export class RouteBaselineComponent {
       if (config.dayOfWeek && row?.dayOfWeek !== config.dayOfWeek) return false;
 
       if (config.excludePeak && this.isPeakSeason(date)) return false;
+      if (config.excludeSupervisedDays && !!row?.onCarSupervisor) return false;
 
       return true;
     });
@@ -309,6 +310,34 @@ export class RouteBaselineComponent {
   private isPeakSeason(date: Date): boolean {
     const week = this.isoWeek(date);
     return week >= 40 || week <= 2;
+  }
+
+  showChildColor(n: number): boolean {
+    return n > 6;
+  }
+
+  barWidth(value: number | null | undefined, max: number): number {
+    const v = Math.abs(this.toNum(value, 0));
+    return Math.min((v / max) * 100, 100);
+  }
+
+  stopsClass(value: number): string {
+    if (value >= 130) return 'good';
+    if (value >= 110) return 'warn';
+    return 'bad';
+  }
+
+  ovUnClass(value: number): string {
+    if (value >= 0) return 'good';
+    if (value >= -1) return 'warn';
+    return 'bad';
+  }
+
+  sporhClass(value: number | null): string {
+    const v = this.toNum(value, 0);
+    if (v >= 17) return 'good';
+    if (v >= 16) return 'warn';
+    return 'bad';
   }
 
   // ---------- utils ----------

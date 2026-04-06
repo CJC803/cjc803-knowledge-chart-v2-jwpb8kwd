@@ -143,10 +143,52 @@
                           <td>{{ dr.lastDriven }}</td>
                           <td class="num">{{ dr.avgNDPPH }}</td>
                           <td class="num">{{ dr.avgSPM }}</td>
-                          <td class="num">{{ dr.avgOvUn }}</td>
-                          <td class="num">{{ dr.avgStops }}</td>
+                          <td class="num">
+                            <ng-container *ngIf="showChildColor(dr.days); else ovUnPlain">
+                              <div class="metric">
+                                <span class="v">{{ dr.avgOvUn }}</span>
+                                <div class="mtrack">
+                                  <div
+                                    class="mfill"
+                                    [ngClass]="ovUnClass(dr.avgOvUn)"
+                                    [style.width.%]="barWidth(dr.avgOvUn, 3)">
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                            <ng-template #ovUnPlain>{{ dr.avgOvUn }}</ng-template>
+                          </td>
+                          <td class="num">
+                            <ng-container *ngIf="showChildColor(dr.days); else stopsPlain">
+                              <div class="metric">
+                                <span class="v">{{ dr.avgStops }}</span>
+                                <div class="mtrack">
+                                  <div
+                                    class="mfill"
+                                    [ngClass]="stopsClass(dr.avgStops)"
+                                    [style.width.%]="barWidth(dr.avgStops, 180)">
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                            <ng-template #stopsPlain>{{ dr.avgStops }}</ng-template>
+                          </td>
                           <td class="num">{{ dr.avgMiles }}</td>
-                          <td class="num">{{ dr.avgSPORH ?? '—' }}</td>
+                          <td class="num">
+                            <ng-container *ngIf="showChildColor(dr.days); else sporhPlain">
+                              <div class="metric">
+                                <span class="v">{{ dr.avgSPORH ?? '—' }}</span>
+                                <div class="mtrack">
+                                  <div
+                                    class="mfill"
+                                    [ngClass]="sporhClass(dr.avgSPORH)"
+                                    [style.width.%]="barWidth(dr.avgSPORH, 20)">
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                            <ng-template #sporhPlain>{{ dr.avgSPORH ?? '—' }}</ng-template>
+                          </td>
                         </tr>
 
                         <!-- Level 2: Days for selected driver -->
@@ -162,6 +204,7 @@
                                   <th class="num">SPM</th>
                                   <th class="num">NDPPH</th>
                                   <th class="num">Ov/Un</th>
+                                  <th>On-Car Sup</th>
                                   <th>PM</th>
                                   <th>Time</th>
                                 </tr>
@@ -175,7 +218,8 @@
                                   <td class="num">{{ d.miles }}</td>
                                   <td class="num">{{ spmForRow(d) }}</td>
                                   <td class="num">{{ d.ndpph }}</td>
-                                  <td class="num">{{ d.paidVsPlan }}</td>
+                                  <td class="num">{{ d.ovUn ?? d.paidVsPlan }}</td>
+                                  <td>{{ d.onCarSupervisor ? 'Yes' : 'No' }}</td>
                                   <td>{{ d.pm ?? '—' }}</td>
                                   <td>{{ d.time ?? '—' }}</td>
                                 </tr>

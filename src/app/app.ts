@@ -52,6 +52,14 @@ type TabKey = 'routes' | 'drivers' | 'comparison';
           <input type="checkbox" [checked]="excludePeak" (change)="onExcludePeakChange($event)" />
           Exclude Peak Season (Week 40–2)
         </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            [checked]="excludeSupervisedDays"
+            (change)="onExcludeSupervisedDaysChange($event)" />
+          Exclude On-Car Supervisor Days
+        </label>
       </section>
 
       <nav class="tabs">
@@ -172,6 +180,7 @@ export class AppComponent implements OnInit {
   startDate: string | null = null;
   endDate: string | null = null;
   excludePeak = false;
+  excludeSupervisedDays = false;
 
   constructor(private dataService: DataService) {}
 
@@ -197,5 +206,10 @@ export class AppComponent implements OnInit {
   onExcludePeakChange(event: Event) {
     this.excludePeak = (event.target as HTMLInputElement).checked;
     this.dataService.setExcludePeak(this.excludePeak);
+  }
+
+  onExcludeSupervisedDaysChange(event: Event) {
+    this.excludeSupervisedDays = (event.target as HTMLInputElement).checked;
+    this.dataService.setExcludeSupervisedDays(this.excludeSupervisedDays);
   }
 }

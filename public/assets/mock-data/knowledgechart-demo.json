@@ -489,7 +489,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -501,7 +502,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -513,7 +515,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -525,7 +528,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -537,7 +541,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -549,7 +554,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -561,7 +567,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -573,7 +580,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -585,7 +593,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -597,7 +606,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -609,7 +619,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -621,7 +632,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -633,7 +645,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -645,7 +658,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -657,7 +671,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -669,7 +684,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -681,7 +697,8 @@
       "ndpph": 26.4,
       "spm": 2.88,
       "ovUn": -0.2,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -693,7 +710,8 @@
       "ndpph": 24,
       "spm": 2.89,
       "ovUn": -0.3,
-      "sporh": 17.3
+      "sporh": 17.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-06",
@@ -705,7 +723,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -717,7 +736,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -729,7 +749,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -741,7 +762,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -753,7 +775,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -765,7 +788,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -777,7 +801,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -789,7 +814,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -801,7 +827,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -813,7 +840,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -825,7 +853,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -837,7 +866,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -849,7 +879,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -861,7 +892,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -873,7 +905,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -885,7 +918,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -897,7 +931,8 @@
       "ndpph": 26.7,
       "spm": 2.86,
       "ovUn": -0.2,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-25",
@@ -909,7 +944,8 @@
       "ndpph": 24.3,
       "spm": 2.87,
       "ovUn": -0.3,
-      "sporh": 17.2
+      "sporh": 17.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -921,7 +957,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -933,7 +970,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -945,7 +983,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -957,7 +996,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -969,7 +1009,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -981,7 +1022,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -993,7 +1035,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -1005,7 +1048,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -1017,7 +1061,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -1029,7 +1074,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -1041,7 +1087,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -1053,7 +1100,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -1065,7 +1113,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -1077,7 +1126,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -1089,7 +1139,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -1101,7 +1152,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-24",
@@ -1113,7 +1165,8 @@
       "ndpph": 27.1,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -1125,7 +1178,8 @@
       "ndpph": 24.6,
       "spm": 2.85,
       "ovUn": -0.3,
-      "sporh": 17.1
+      "sporh": 17.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -1137,7 +1191,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -1149,7 +1204,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -1161,7 +1217,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -1173,7 +1230,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -1185,7 +1243,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -1197,7 +1256,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -1209,7 +1269,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -1221,7 +1282,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -1233,7 +1295,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -1245,7 +1308,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -1257,7 +1321,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -1269,7 +1334,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -1281,7 +1347,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -1293,7 +1360,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -1305,7 +1373,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-23",
@@ -1317,7 +1386,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -1329,7 +1399,8 @@
       "ndpph": 27.4,
       "spm": 2.84,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -1341,7 +1412,8 @@
       "ndpph": 24.9,
       "spm": 2.83,
       "ovUn": -0.3,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -1353,7 +1425,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -1365,7 +1438,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -1377,7 +1451,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -1389,7 +1464,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -1401,7 +1477,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -1413,7 +1490,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -1425,7 +1503,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -1437,7 +1516,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -1449,7 +1529,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -1461,7 +1542,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -1473,7 +1555,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -1485,7 +1568,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -1497,7 +1581,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -1509,7 +1594,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-22",
@@ -1521,7 +1607,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -1533,7 +1620,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -1545,7 +1633,8 @@
       "ndpph": 27.7,
       "spm": 2.83,
       "ovUn": -0.2,
-      "sporh": 17
+      "sporh": 17,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -1557,7 +1646,8 @@
       "ndpph": 25.2,
       "spm": 2.81,
       "ovUn": -0.3,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -1569,7 +1659,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -1581,7 +1672,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -1593,7 +1685,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -1605,7 +1698,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -1617,7 +1711,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -1629,7 +1724,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -1641,7 +1737,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -1653,7 +1750,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -1665,7 +1763,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -1677,7 +1776,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -1689,7 +1789,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -1701,7 +1802,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -1713,7 +1815,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-21",
@@ -1725,7 +1828,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -1737,7 +1841,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -1749,7 +1854,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -1761,7 +1867,8 @@
       "ndpph": 28.1,
       "spm": 2.81,
       "ovUn": -0.2,
-      "sporh": 16.9
+      "sporh": 16.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -1773,7 +1880,8 @@
       "ndpph": 25.5,
       "spm": 2.79,
       "ovUn": -0.3,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -1785,7 +1893,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -1797,7 +1906,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -1809,7 +1919,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -1821,7 +1932,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -1833,7 +1945,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -1845,7 +1958,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -1857,7 +1971,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -1869,7 +1984,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -1881,7 +1997,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -1893,7 +2010,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -1905,7 +2023,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -1917,7 +2036,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-20",
@@ -1929,7 +2049,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -1941,7 +2062,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -1953,7 +2075,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -1965,7 +2088,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -1977,7 +2101,8 @@
       "ndpph": 28.4,
       "spm": 2.79,
       "ovUn": -0.2,
-      "sporh": 16.7
+      "sporh": 16.7,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -1989,7 +2114,8 @@
       "ndpph": 25.8,
       "spm": 2.77,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -2001,7 +2127,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -2013,7 +2140,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -2025,7 +2153,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -2037,7 +2166,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -2049,7 +2179,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -2061,7 +2192,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -2073,7 +2205,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -2085,7 +2218,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -2097,7 +2231,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -2109,7 +2244,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -2121,7 +2257,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-18",
@@ -2133,7 +2270,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -2145,7 +2283,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -2157,7 +2296,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -2169,7 +2309,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -2181,7 +2322,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -2193,7 +2335,8 @@
       "ndpph": 28.7,
       "spm": 2.72,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -2205,7 +2348,8 @@
       "ndpph": 26.1,
       "spm": 2.76,
       "ovUn": -0.3,
-      "sporh": 16.6
+      "sporh": 16.6,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -2217,7 +2361,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -2229,7 +2374,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -2241,7 +2387,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -2253,7 +2400,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -2265,7 +2413,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -2277,7 +2426,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -2289,7 +2439,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -2301,7 +2452,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -2313,7 +2465,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -2325,7 +2478,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -2337,7 +2491,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -2349,7 +2504,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -2361,7 +2517,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -2373,7 +2530,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -2385,7 +2543,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -2397,7 +2556,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -2409,7 +2569,8 @@
       "ndpph": 29,
       "spm": 2.73,
       "ovUn": -0.2,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -2421,7 +2582,8 @@
       "ndpph": 26.4,
       "spm": 2.74,
       "ovUn": -0.3,
-      "sporh": 16.4
+      "sporh": 16.4,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -2433,7 +2595,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -2445,7 +2608,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -2457,7 +2621,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -2469,7 +2634,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -2481,7 +2647,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -2493,7 +2660,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -2505,7 +2673,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -2517,7 +2686,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -2529,7 +2699,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-16",
@@ -2541,7 +2712,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -2553,7 +2725,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -2565,7 +2738,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -2577,7 +2751,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -2589,7 +2764,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -2601,7 +2777,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -2613,7 +2790,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -2625,7 +2803,8 @@
       "ndpph": 29.4,
       "spm": 2.71,
       "ovUn": -0.2,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -2637,7 +2816,8 @@
       "ndpph": 26.7,
       "spm": 2.72,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -2649,7 +2829,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -2661,7 +2842,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -2673,7 +2855,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -2685,7 +2868,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -2697,7 +2881,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -2709,7 +2894,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -2721,7 +2907,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -2733,7 +2920,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-15",
@@ -2745,7 +2933,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -2757,7 +2946,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -2769,7 +2959,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -2781,7 +2972,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -2793,7 +2985,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -2805,7 +2998,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -2817,7 +3011,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -2829,7 +3024,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -2841,7 +3037,8 @@
       "ndpph": 29.7,
       "spm": 2.7,
       "ovUn": -0.2,
-      "sporh": 16.2
+      "sporh": 16.2,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -2853,7 +3050,8 @@
       "ndpph": 27,
       "spm": 2.71,
       "ovUn": -0.3,
-      "sporh": 16.3
+      "sporh": 16.3,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -2865,7 +3063,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -2877,7 +3076,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -2889,7 +3089,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -2901,7 +3102,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -2913,7 +3115,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -2925,7 +3128,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -2937,7 +3141,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-14",
@@ -2949,7 +3154,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -2961,7 +3167,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -2973,7 +3180,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -2985,7 +3193,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -2997,7 +3206,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -3009,7 +3219,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -3021,7 +3232,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -3033,7 +3245,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -3045,7 +3258,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -3057,7 +3271,8 @@
       "ndpph": 30,
       "spm": 2.69,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -3069,7 +3284,8 @@
       "ndpph": 27.3,
       "spm": 2.69,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -3081,7 +3297,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -3093,7 +3310,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -3105,7 +3323,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -3117,7 +3336,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -3129,7 +3349,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -3141,7 +3362,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-13",
@@ -3153,7 +3375,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -3165,7 +3388,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -3177,7 +3401,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -3189,7 +3414,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -3201,7 +3427,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -3213,7 +3440,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -3225,7 +3453,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -3237,7 +3466,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -3249,7 +3479,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -3261,7 +3492,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -3273,7 +3505,8 @@
       "ndpph": 30.4,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -3285,7 +3518,8 @@
       "ndpph": 27.6,
       "spm": 2.68,
       "ovUn": -0.3,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -3297,7 +3531,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -3309,7 +3544,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -3321,7 +3557,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -3333,7 +3570,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-10",
@@ -3345,7 +3583,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-11",
@@ -3357,7 +3596,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -3369,7 +3609,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -3381,7 +3622,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -3393,7 +3635,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -3405,7 +3648,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -3417,7 +3661,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -3429,7 +3674,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -3441,7 +3687,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -3453,7 +3700,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -3465,7 +3713,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -3477,7 +3726,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -3489,7 +3739,8 @@
       "ndpph": 30.7,
       "spm": 2.68,
       "ovUn": -0.2,
-      "sporh": 16.1
+      "sporh": 16.1,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -3501,7 +3752,8 @@
       "ndpph": 27.9,
       "spm": 2.67,
       "ovUn": -0.3,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-06",
@@ -3513,7 +3765,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-07",
@@ -3525,7 +3778,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-08",
@@ -3537,7 +3791,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-09",
@@ -3549,7 +3804,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-10",
@@ -3561,7 +3817,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-11",
@@ -3573,7 +3830,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-13",
@@ -3585,7 +3843,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-14",
@@ -3597,7 +3856,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-15",
@@ -3609,7 +3869,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-16",
@@ -3621,7 +3882,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": true
     },
     {
       "date": "2025-01-17",
@@ -3633,7 +3895,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-18",
@@ -3645,7 +3908,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-20",
@@ -3657,7 +3921,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-21",
@@ -3669,7 +3934,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-22",
@@ -3681,7 +3947,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-23",
@@ -3693,7 +3960,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-24",
@@ -3705,7 +3973,8 @@
       "ndpph": 31,
       "spm": 2.67,
       "ovUn": -0.2,
-      "sporh": 16
+      "sporh": 16,
+      "onCarSupervisor": false
     },
     {
       "date": "2025-01-25",
@@ -3717,7 +3986,8 @@
       "ndpph": 28.2,
       "spm": 2.65,
       "ovUn": -0.3,
-      "sporh": 15.9
+      "sporh": 15.9,
+      "onCarSupervisor": false
     }
   ]
 }

@@ -7,6 +7,7 @@ export type ViewConfig = {
   endDate: string | null;
   dayOfWeek: string | null;
   excludePeak: boolean;
+  excludeSupervisedDays: boolean;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +20,7 @@ export class DataService {
     endDate: null,
     dayOfWeek: null,
     excludePeak: false,
+    excludeSupervisedDays: false,
   });
   viewConfig$ = this.viewConfigSubject.asObservable();
 
@@ -59,12 +61,18 @@ export class DataService {
     this.viewConfigSubject.next({ ...current, excludePeak });
   }
 
+  setExcludeSupervisedDays(excludeSupervisedDays: boolean) {
+    const current = this.viewConfigSubject.value;
+    this.viewConfigSubject.next({ ...current, excludeSupervisedDays });
+  }
+
   resetFilters() {
     this.viewConfigSubject.next({
       startDate: null,
       endDate: null,
       dayOfWeek: null,
       excludePeak: false,
+      excludeSupervisedDays: false,
     });
   }
 }
