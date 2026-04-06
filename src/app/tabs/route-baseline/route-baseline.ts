@@ -316,7 +316,7 @@ export class RouteBaselineComponent {
   }
 
   showChildColor(n: number): boolean {
-    return n > 6;
+    return n >= 3;
   }
 
   showParentColor(n: number): boolean {
