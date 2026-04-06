@@ -24,19 +24,12 @@ type RouteRow = {
   isBidRoute: boolean;
   runs365: number;
   filteredRuns: number;
-  filteredPct: number;
   avgStops: number | null;
   avgMiles: number | null;
   avgSPM: number | null;
   avgNDPPH: number | null;
   avgOvUn: number | null;
   sporh: number | null;
-  recommendation: {
-    bestFitDriver: string;
-    bestFitReason: string;
-    developmentDriver: string;
-    developmentReason: string;
-  };
   ruralHardToCover: boolean;
 };
 
@@ -181,11 +174,10 @@ export class RouteBaselineComponent {
       if (!data) return [] as RouteRow[];
 
       const allRows = data.dailyHistory ?? [];
-      const drivers = data.drivers ?? [];
+      const routesMeta = data.routes ?? [];
       const filteredRows = this.applyFilters(allRows, config);
-      const filteredDays = new Set(filteredRows.map((d: any) => d.date)).size;
       const bidRoutes = new Set(
-        drivers.map((d: any) => d?.bidRoute).filter((routeId: string | null | undefined) => !!routeId)
+        routesMeta.filter((r: any) => !!r?.isBidRoute).map((r: any) => r.routeId as string)
       );
 
       const rowsByRoute = new Map<string, any[]>();
@@ -202,15 +194,10 @@ export class RouteBaselineComponent {
 
       const latestDate = this.latestDate(allRows);
       const startWindow = this.shiftDays(latestDate, -364);
-      const routesKnownByDriver = this.routesKnownByDriver(allRows);
-      const driversById = new Map<string, any>(
-        drivers.map((d: any) => [d.driverId as string, d] as [string, any])
-      );
 
       const routes: RouteRow[] = Array.from(rowsByRoute.entries()).map(([routeId, allRouteRows]) => {
         const routeFilteredRows = filteredByRoute.get(routeId) ?? [];
         const routeSPM = this.safeSPM(allRouteRows);
-        const recommendation = this.buildRecommendation(routeId, driversById, routesKnownByDriver);
         const runs365 = allRouteRows.filter((d) => {
           const date = this.parseDate(d?.date);
           if (!date || !latestDate || !startWindow) return false;
@@ -218,25 +205,22 @@ export class RouteBaselineComponent {
         }).length;
 
         const filteredRuns = routeFilteredRows.length;
-        const filteredPct = filteredDays ? (filteredRuns / filteredDays) * 100 : 0;
 
         if (!routeFilteredRows.length) {
-            return {
-              routeId,
-              isBidRoute: bidRoutes.has(routeId),
-              runs365,
-              filteredRuns,
-              filteredPct,
+          return {
+            routeId,
+            isBidRoute: bidRoutes.has(routeId),
+            runs365,
+            filteredRuns,
             avgStops: null,
             avgMiles: null,
             avgSPM: null,
-              avgNDPPH: null,
-              avgOvUn: null,
-              sporh: null,
-              recommendation,
-              ruralHardToCover: routeSPM < 1.6,
-            };
-          }
+            avgNDPPH: null,
+            avgOvUn: null,
+            sporh: null,
+            ruralHardToCover: routeSPM < 1.6,
+          };
+        }
 
         const avgStops = Math.round(this.avg(routeFilteredRows, 'stops'));
         const avgMiles = Math.round(this.avg(routeFilteredRows, 'miles'));
@@ -255,14 +239,12 @@ export class RouteBaselineComponent {
           isBidRoute: bidRoutes.has(routeId),
           runs365,
           filteredRuns,
-          filteredPct,
           avgStops,
           avgMiles,
           avgSPM,
           avgNDPPH,
           avgOvUn,
           sporh,
-          recommendation,
           ruralHardToCover: routeSPM < 1.6,
         };
       });
@@ -327,59 +309,6 @@ export class RouteBaselineComponent {
   private isPeakSeason(date: Date): boolean {
     const week = this.isoWeek(date);
     return week >= 40 || week <= 2;
-  }
-
-  private routesKnownByDriver(rows: any[]) {
-    const map = new Map<string, Set<string>>();
-    rows.forEach((r) => {
-      const driverId = r?.driverId;
-      const routeId = r?.routeId;
-      if (!driverId || !routeId) return;
-      if (!map.has(driverId)) map.set(driverId, new Set<string>());
-      map.get(driverId)!.add(routeId);
-    });
-    return map;
-  }
-
-  private buildRecommendation(
-    routeId: string,
-    driversById: Map<string, any>,
-    routesKnownByDriver: Map<string, Set<string>>
-  ) {
-    const candidates = Array.from(driversById.keys()).map((driverId) => {
-      const routesKnown = routesKnownByDriver.get(driverId) ?? new Set<string>();
-      return {
-        driverId,
-        name: driversById.get(driverId)?.name ?? driverId,
-        knowsTargetRoute: routesKnown.has(routeId),
-        knowledgeBreadth: routesKnown.size,
-      };
-    });
-
-    const bestFitPool = candidates
-      .slice()
-      .sort((a, b) => {
-        if (a.knowsTargetRoute !== b.knowsTargetRoute) return a.knowsTargetRoute ? -1 : 1;
-        return b.knowledgeBreadth - a.knowledgeBreadth;
-      });
-    const bestFit = bestFitPool[0];
-
-    const developmentPool = candidates
-      .filter((c) => !c.knowsTargetRoute)
-      .sort((a, b) => a.knowledgeBreadth - b.knowledgeBreadth);
-    const development = developmentPool[0] ?? bestFit;
-
-    return {
-      bestFitDriver: bestFit?.name ?? '—',
-      bestFitReason: bestFit?.knowsTargetRoute
-        ? `${bestFit.name} already knows ${routeId} and can cover quickly.`
-        : `${bestFit?.name ?? '—'} has broader route knowledge for immediate flexibility.`,
-      developmentDriver: development?.name ?? '—',
-      developmentReason:
-        development && !development.knowsTargetRoute
-          ? `${development.name} knows fewer routes; pair with On-Car Supervisor if available to build coverage depth.`
-          : `No development candidate found; use best-fit assignment.`,
-    };
   }
 
   // ---------- utils ----------

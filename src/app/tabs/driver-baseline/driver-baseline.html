@@ -15,7 +15,6 @@
         <tr>
           <th>Driver</th>
           <th class="num">Seniority</th>
-          <th>Bid?</th>
           <th>Bid Route</th>
           <th class="num">Stops</th>
           <th class="num">Miles</th>
@@ -37,9 +36,6 @@
             </td>
 
             <td class="num">{{ d.seniority }}</td>
-            <td>
-              <input type="checkbox" [checked]="!!d.bidRoute" disabled aria-label="Bid driver indicator" />
-            </td>
             <td>{{ d.bidRoute }}</td>
             <td class="num">{{ d.avgStops }}</td>
             <td class="num">{{ d.avgMiles }}</td>
@@ -86,7 +82,7 @@
 
           <!-- DRILLDOWN -->
           <tr *ngIf="expandedDriverId === d.driverId" class="drill-row">
-            <td colspan="11">
+            <td colspan="10">
               <div class="drill">
                 <div class="drill-head">
                   <div>

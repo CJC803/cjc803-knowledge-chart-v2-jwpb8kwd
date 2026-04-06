@@ -41,7 +41,7 @@
               </td>
 
               <td class="num">{{ r.runs365 }}</td>
-              <td class="num">{{ r.filteredRuns }} ({{ r.filteredPct | number:'1.0-1' }}%)</td>
+              <td class="num">{{ r.filteredRuns }}</td>
               <td>{{ getLastDriven(r.routeId) }}</td>
 
               <!-- Avg SPM (plain stat only) -->
@@ -103,18 +103,6 @@
                       <span class="badge" *ngIf="r.ruralHardToCover">Rural SPM - harder to cover</span>
                     </div>
                   </div>
-
-                  <section class="mini" style="margin-bottom: 12px;">
-                    <div><strong>Coverage Recommendation</strong></div>
-                    <div style="margin-top: 6px;">
-                      <strong>Best fit now:</strong> {{ r.recommendation.bestFitDriver }}
-                      <span class="muted"> — {{ r.recommendation.bestFitReason }}</span>
-                    </div>
-                    <div style="margin-top: 4px;">
-                      <strong>Development option:</strong> {{ r.recommendation.developmentDriver }}
-                      <span class="muted"> — {{ r.recommendation.developmentReason }}</span>
-                    </div>
-                  </section>
 
                   <!-- Level 1: Drivers (NOW with rollups before expanding) -->
                   <table class="mini mini-tight">

@@ -14,7 +14,8 @@
     },
     {
       "routeId": "R03",
-      "dominantDriverId": "D03"
+      "dominantDriverId": "D03",
+      "isBidRoute": true
     },
     {
       "routeId": "R04",
@@ -42,7 +43,8 @@
     },
     {
       "routeId": "R10",
-      "dominantDriverId": "D10"
+      "dominantDriverId": "D10",
+      "isBidRoute": true
     },
     {
       "routeId": "R11",
