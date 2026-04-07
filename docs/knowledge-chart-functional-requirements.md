@@ -8,6 +8,7 @@ It is intended to accompany the mock so delivery teams can build, validate, and 
 ## 2. In Scope
 - Route Baseline tab behavior and drilldowns.
 - Driver Baseline tab behavior and drilldowns.
+- Comparison tab behavior (functioning current-state tab).
 - Shared filter controls and semantics.
 - Baseline vs filtered route-run metrics.
 - Read-only bid indicators.
@@ -98,6 +99,40 @@ Expanding a driver shall show routes they have driven with rollups and % occurre
 ### FR-12: Driver Drilldown Level 2 (Daily Rows)
 Expanding a route under a driver shall show day-level rows including On-Car Supervisor status.
 
+## 8. Comparison Tab Requirements
+### FR-13: Comparison Tab Availability
+System shall provide a functioning Comparison tab that supports side-by-side driver comparisons.
+
+### FR-14: Driver Selection Behavior
+Comparison tab shall support selecting multiple drivers and rendering comparative metric output for selected drivers.
+
+### FR-15: Metric/Mode Controls
+Comparison tab shall support metric and mode controls used to switch comparison view context (for example absolute vs delta style comparison behaviors).
+
+## 9. Visual Treatment Requirements
+### FR-16: Parent-Level Visuals
+Parent-level progress/color visuals shall be shown for Stops, Ov/Un, and SPORH only.
+
+### FR-17: NDPPH Display
+NDPPH / Avg NDPPH columns shall be numeric-only (no bar visuals).
+
+### FR-18: Route Child Visual Threshold
+In Route tab child data, drivers with 3 or more route days shall receive visual treatment.
+
+### FR-19: Child Metrics Eligible for Visuals
+Child visual treatment shall be restricted to Stops, Ov/Un, and SPORH.
+
+## 10. Data Contracts (Current)
+### FR-20: Route Bid Flag
+Route-level bid indicator shall use `isBidRoute` (read-only).
+
+### FR-21: Supervisor Flag
+Day-level supervisor context shall use `onCarSupervisor` boolean.
+
+### FR-22: Ov/Un Rollup Source
+Ov/Un aggregation shall use `ovUn`, with fallback to `paidVsPlan` for compatibility.
+
+## 11. Acceptance Criteria (UAT)
 ## 8. Visual Treatment Requirements
 ### FR-13: Parent-Level Visuals
 Parent-level progress/color visuals shall be shown for Stops, Ov/Un, and SPORH only.
@@ -143,6 +178,12 @@ then child visuals are shown for eligible metrics.
 Given drilldown daily rows,
 then On-Car Supervisor status is visible and aligned with exclusion behavior.
 
+### AC-5: Comparison Tab Continuity
+Given user selection of two or more drivers in Comparison tab,
+when comparison metric or mode is changed,
+then comparison output updates without affecting baseline-route invariance semantics in other tabs.
+
+## 12. Non-Functional Requirements
 ## 11. Non-Functional Requirements
 ### NFR-1: Determinism
 For the same dataset and filter state, outputs shall be deterministic across tabs.
@@ -153,6 +194,11 @@ All displayed values must be explainable to operations users with clear filtered
 ### NFR-3: Auditability
 Rules for peak exclusion, supervised-day exclusion, and rollup formulas must be documented and testable.
 
+## 13. Handoff Checklist
+- [ ] Confirm stakeholders accept baseline/filtered semantics and labels.
+- [ ] Confirm acceptance criteria AC-1 through AC-5 in UAT.
+- [ ] Confirm QA checklist execution (`docs/sprint-4-qa-uat-checklist.md`).
+- [ ] Confirm comparison-tab behavior and terminology are signed off for release notes/training.
 ## 12. Handoff Checklist
 - [ ] Confirm stakeholders accept baseline/filtered semantics and labels.
 - [ ] Confirm acceptance criteria AC-1 through AC-4 in UAT.
