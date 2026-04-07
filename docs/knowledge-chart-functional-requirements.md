@@ -133,6 +133,30 @@ Day-level supervisor context shall use `onCarSupervisor` boolean.
 Ov/Un aggregation shall use `ovUn`, with fallback to `paidVsPlan` for compatibility.
 
 ## 11. Acceptance Criteria (UAT)
+## 8. Visual Treatment Requirements
+### FR-13: Parent-Level Visuals
+Parent-level progress/color visuals shall be shown for Stops, Ov/Un, and SPORH only.
+
+### FR-14: NDPPH Display
+NDPPH / Avg NDPPH columns shall be numeric-only (no bar visuals).
+
+### FR-15: Route Child Visual Threshold
+In Route tab child data, drivers with 3 or more route days shall receive visual treatment.
+
+### FR-16: Child Metrics Eligible for Visuals
+Child visual treatment shall be restricted to Stops, Ov/Un, and SPORH.
+
+## 9. Data Contracts (Current)
+### FR-17: Route Bid Flag
+Route-level bid indicator shall use `isBidRoute` (read-only).
+
+### FR-18: Supervisor Flag
+Day-level supervisor context shall use `onCarSupervisor` boolean.
+
+### FR-19: Ov/Un Rollup Source
+Ov/Un aggregation shall use `ovUn`, with fallback to `paidVsPlan` for compatibility.
+
+## 10. Acceptance Criteria (UAT)
 ### AC-1: Union Challenge Flow
 Given a route in Route Baseline,
 when user compares Runs (Last 365 Days) and Runs (Current Filters),
@@ -160,6 +184,7 @@ when comparison metric or mode is changed,
 then comparison output updates without affecting baseline-route invariance semantics in other tabs.
 
 ## 12. Non-Functional Requirements
+## 11. Non-Functional Requirements
 ### NFR-1: Determinism
 For the same dataset and filter state, outputs shall be deterministic across tabs.
 
@@ -174,4 +199,8 @@ Rules for peak exclusion, supervised-day exclusion, and rollup formulas must be 
 - [ ] Confirm acceptance criteria AC-1 through AC-5 in UAT.
 - [ ] Confirm QA checklist execution (`docs/sprint-4-qa-uat-checklist.md`).
 - [ ] Confirm comparison-tab behavior and terminology are signed off for release notes/training.
+## 12. Handoff Checklist
+- [ ] Confirm stakeholders accept baseline/filtered semantics and labels.
+- [ ] Confirm acceptance criteria AC-1 through AC-4 in UAT.
+- [ ] Confirm QA checklist execution (`docs/sprint-4-qa-uat-checklist.md`).
 - [ ] Confirm unresolved open questions are tracked in backlog before production cutover.
