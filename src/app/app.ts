@@ -50,7 +50,7 @@ type TabKey = 'routes' | 'drivers' | 'comparison';
 
         <label class="checkbox-row">
           <input type="checkbox" [checked]="excludePeak" (change)="onExcludePeakChange($event)" />
-          Exclude Peak Season (Week 40–2)
+          Exclude Peak Season
         </label>
 
         <label class="checkbox-row">
