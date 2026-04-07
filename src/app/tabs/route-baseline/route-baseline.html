@@ -55,6 +55,60 @@
               <td class="num">{{ r.avgStops ?? '—' }}</td>
 
               <td class="num">{{ r.sporh ?? '—' }}</td>
+
+              <td class="num">{{ r.avgNDPPH ?? '—' }}</td>
+
+              <td class="num">
+                <ng-container *ngIf="r.avgOvUn !== null && showParentColor(r.sampleDays); else routeOvUnPlain">
+                  <div class="metric">
+                    <span class="v">{{ r.avgOvUn }}</span>
+                    <div class="mtrack">
+                      <div
+                        class="mfill"
+                        [ngClass]="ovUnClass(r.avgOvUn)"
+                        [style.width.%]="barWidth(r.avgOvUn, 3)">
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #routeOvUnPlain>{{ r.avgOvUn ?? '—' }}</ng-template>
+              </td>
+
+              <td class="num">{{ r.avgMiles ?? '—' }}</td>
+              <td class="num">
+                <ng-container *ngIf="r.avgStops !== null && showParentColor(r.sampleDays); else routeStopsPlain">
+                  <div class="metric">
+                    <span class="v">{{ r.avgStops }}</span>
+                    <div class="mtrack">
+                      <div
+                        class="mfill"
+                        [ngClass]="stopsClass(r.avgStops)"
+                        [style.width.%]="barWidth(r.avgStops, 180)">
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #routeStopsPlain>{{ r.avgStops ?? '—' }}</ng-template>
+              </td>
+
+              <!-- SPORH (bar + color-coded) -->
+              <td class="num">
+                <div class="metric" *ngIf="r.sporh !== null && showParentColor(r.sampleDays); else noSporh">
+                  <span class="v">{{ r.sporh }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="{
+                        'good': (r.sporh || 0) >= 17,
+                        'warn': (r.sporh || 0) >= 16 && (r.sporh || 0) < 16.99,
+                        'bad': (r.sporh || 0) < 16
+                      }"
+                      [style.width.%]="Math.min(((r.sporh || 0) / 8) * 100, 100)">
+                    </div>
+                  </div>
+                </div>
+                <ng-template #noSporh>{{ r.sporh ?? '—' }}</ng-template>
+              </td>
             </tr>
 
             <!-- Drilldown row -->
