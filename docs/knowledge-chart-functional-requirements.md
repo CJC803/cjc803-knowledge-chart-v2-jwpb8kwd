@@ -184,7 +184,6 @@ when comparison metric or mode is changed,
 then comparison output updates without affecting baseline-route invariance semantics in other tabs.
 
 ## 12. Non-Functional Requirements
-## 11. Non-Functional Requirements
 ### NFR-1: Determinism
 For the same dataset and filter state, outputs shall be deterministic across tabs.
 
@@ -199,8 +198,4 @@ Rules for peak exclusion, supervised-day exclusion, and rollup formulas must be 
 - [ ] Confirm acceptance criteria AC-1 through AC-5 in UAT.
 - [ ] Confirm QA checklist execution (`docs/sprint-4-qa-uat-checklist.md`).
 - [ ] Confirm comparison-tab behavior and terminology are signed off for release notes/training.
-## 12. Handoff Checklist
-- [ ] Confirm stakeholders accept baseline/filtered semantics and labels.
-- [ ] Confirm acceptance criteria AC-1 through AC-4 in UAT.
-- [ ] Confirm QA checklist execution (`docs/sprint-4-qa-uat-checklist.md`).
 - [ ] Confirm unresolved open questions are tracked in backlog before production cutover.

@@ -24,7 +24,6 @@ type RouteRow = {
   isBidRoute: boolean;
   runs365: number;
   filteredRuns: number;
-  sampleDays: number;
   avgStops: number | null;
   avgMiles: number | null;
   avgSPM: number | null;
@@ -213,7 +212,6 @@ export class RouteBaselineComponent {
             isBidRoute: bidRoutes.has(routeId),
             runs365,
             filteredRuns,
-            sampleDays: 0,
             avgStops: null,
             avgMiles: null,
             avgSPM: null,
@@ -241,7 +239,6 @@ export class RouteBaselineComponent {
           isBidRoute: bidRoutes.has(routeId),
           runs365,
           filteredRuns,
-          sampleDays: routeFilteredRows.length,
           avgStops,
           avgMiles,
           avgSPM,
@@ -317,10 +314,6 @@ export class RouteBaselineComponent {
 
   showChildColor(n: number): boolean {
     return n >= 3;
-  }
-
-  showParentColor(n: number): boolean {
-    return n > 6;
   }
 
   barWidth(value: number | null | undefined, max: number): number {
