@@ -49,6 +49,15 @@
 
               <td class="num">{{ r.avgNDPPH ?? '—' }}</td>
 
+              <td class="num">{{ r.avgOvUn ?? '—' }}</td>
+
+              <td class="num">{{ r.avgMiles ?? '—' }}</td>
+              <td class="num">{{ r.avgStops ?? '—' }}</td>
+
+              <td class="num">{{ r.sporh ?? '—' }}</td>
+
+              <td class="num">{{ r.avgNDPPH ?? '—' }}</td>
+
               <td class="num">
                 <ng-container *ngIf="r.avgOvUn !== null && showParentColor(r.sampleDays); else routeOvUnPlain">
                   <div class="metric">
