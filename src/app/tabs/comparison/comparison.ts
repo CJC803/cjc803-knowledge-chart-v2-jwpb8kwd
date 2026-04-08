@@ -42,7 +42,8 @@ export class ComparisonComponent {
 
   readonly maxDrivers = 8;
   selectedDriverIds: string[] = [];
-  driverPickerId: string | null = null;
+  showDriverChooser = false;
+  pendingDriverIds: string[] = [];
 
   readonly maxRoutes = 8;
   selectedManualRouteIds: string[] = [];
@@ -131,10 +132,35 @@ export class ComparisonComponent {
     this.recomputeRowsOnly();
   }
 
-  onDriverPick(driverId: string | null) {
-    if (!driverId) return;
-    this.toggleDriver(driverId);
-    this.driverPickerId = null;
+  toggleDriverChooser() {
+    this.showDriverChooser = !this.showDriverChooser;
+    if (!this.showDriverChooser) this.pendingDriverIds = [];
+  }
+
+  togglePendingDriver(driverId: string) {
+    if (this.pendingDriverIds.includes(driverId)) {
+      this.pendingDriverIds = this.pendingDriverIds.filter((id) => id !== driverId);
+      return;
+    }
+    this.pendingDriverIds = [...this.pendingDriverIds, driverId];
+  }
+
+  isPendingDriver(driverId: string) {
+    return this.pendingDriverIds.includes(driverId);
+  }
+
+  addPendingDrivers() {
+    if (!this.pendingDriverIds.length) return;
+
+    const merged = [...this.selectedDriverIds];
+    this.pendingDriverIds.forEach((id) => {
+      if (!merged.includes(id)) merged.push(id);
+    });
+
+    this.selectedDriverIds = merged.slice(-this.maxDrivers);
+    this.pendingDriverIds = [];
+    this.showDriverChooser = false;
+    this.recomputeRowsOnly();
   }
 
   toggleManualRoute(routeId: string) {
@@ -164,6 +190,8 @@ export class ComparisonComponent {
 
   clearSelectedDrivers() {
     this.selectedDriverIds = [];
+    this.pendingDriverIds = [];
+    this.showDriverChooser = false;
     this.recomputeRowsOnly();
   }
 
