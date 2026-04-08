@@ -27,12 +27,12 @@ type TabKey = 'routes' | 'drivers' | 'comparison';
       <section class="controls">
         <label>
           Start Date
-          <input type="date" (change)="onStartDateChange($event)" />
+          <input type="date" [value]="startDate ?? ''" (change)="onStartDateChange($event)" />
         </label>
 
         <label>
           End Date
-          <input type="date" (change)="onEndDateChange($event)" />
+          <input type="date" [value]="endDate ?? ''" (change)="onEndDateChange($event)" />
         </label>
 
         <label>
@@ -46,6 +46,19 @@ type TabKey = 'routes' | 'drivers' | 'comparison';
             <option>Friday</option>
             <option>Saturday</option>
           </select>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" [checked]="excludePeak" (change)="onExcludePeakChange($event)" />
+          Exclude Peak Season
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            [checked]="excludeSupervisedDays"
+            (change)="onExcludeSupervisedDaysChange($event)" />
+          Exclude On-Car Supervisor Days
         </label>
       </section>
 
@@ -118,6 +131,13 @@ type TabKey = 'routes' | 'drivers' | 'comparison';
       font-size: 13px;
     }
 
+    .controls .checkbox-row {
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
     .controls input,
     .controls select {
       margin-top: 4px;
@@ -159,6 +179,8 @@ export class AppComponent implements OnInit {
 
   startDate: string | null = null;
   endDate: string | null = null;
+  excludePeak = false;
+  excludeSupervisedDays = false;
 
   constructor(private dataService: DataService) {}
 
@@ -173,11 +195,21 @@ export class AppComponent implements OnInit {
 
   onStartDateChange(event: Event) {
     this.startDate = (event.target as HTMLInputElement).value || null;
-    // optional later: push into viewConfig (start/end range)
+    this.dataService.setStartDate(this.startDate);
   }
 
   onEndDateChange(event: Event) {
     this.endDate = (event.target as HTMLInputElement).value || null;
-    // optional later: push into viewConfig (start/end range)
+    this.dataService.setEndDate(this.endDate);
+  }
+
+  onExcludePeakChange(event: Event) {
+    this.excludePeak = (event.target as HTMLInputElement).checked;
+    this.dataService.setExcludePeak(this.excludePeak);
+  }
+
+  onExcludeSupervisedDaysChange(event: Event) {
+    this.excludeSupervisedDays = (event.target as HTMLInputElement).checked;
+    this.dataService.setExcludeSupervisedDays(this.excludeSupervisedDays);
   }
 }
