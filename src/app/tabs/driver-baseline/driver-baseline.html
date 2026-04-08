@@ -15,12 +15,11 @@
         <tr>
           <th>Driver</th>
           <th class="num">Seniority</th>
-          <th>Bid Route</th>
-          <th class="num">Stops</th>
-          <th class="num">Miles</th>
-          <th class="num">SPM</th>
-          <th class="num">NDPPH</th>
+          <th class="num">Avg SPM</th>
+          <th class="num">Avg NDPPH</th>
           <th class="num">Ov/Un</th>
+          <th class="num">Miles</th>
+          <th class="num">Stops</th>
           <th class="num">SPORH</th>
           <th>AM / PM</th>
         </tr>
@@ -36,27 +35,8 @@
             </td>
 
             <td class="num">{{ d.seniority }}</td>
-            <td>{{ d.bidRoute }}</td>
-            <td class="num">
-              <ng-container *ngIf="showParentColor(d.sampleDays); else parentStopsPlain">
-                <div class="metric">
-                  <span class="v">{{ d.avgStops }}</span>
-                  <div class="mtrack">
-                    <div
-                      class="mfill"
-                      [ngClass]="stopsClass(d.avgStops)"
-                      [style.width.%]="barWidth(d.avgStops, 180)">
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-template #parentStopsPlain>{{ d.avgStops }}</ng-template>
-            </td>
-            <td class="num">{{ d.avgMiles }}</td>
             <td class="num">{{ d.avgSPM }}</td>
-
             <td class="num">{{ d.avgNDPPH }}</td>
-
             <td class="num">
               <ng-container *ngIf="showParentColor(d.sampleDays); else parentOvUnPlain">
                 <div class="metric">
@@ -71,6 +51,22 @@
                 </div>
               </ng-container>
               <ng-template #parentOvUnPlain>{{ d.avgOvUn }}</ng-template>
+            </td>
+            <td class="num">{{ d.avgMiles }}</td>
+            <td class="num">
+              <ng-container *ngIf="showParentColor(d.sampleDays); else parentStopsPlain">
+                <div class="metric">
+                  <span class="v">{{ d.avgStops }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="stopsClass(d.avgStops)"
+                      [style.width.%]="barWidth(d.avgStops, 180)">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #parentStopsPlain>{{ d.avgStops }}</ng-template>
             </td>
 
             <td class="num">
@@ -96,7 +92,7 @@
 
           <!-- DRILLDOWN -->
           <tr *ngIf="expandedDriverId === d.driverId" class="drill-row">
-            <td colspan="10">
+            <td colspan="9">
               <div class="drill">
                 <div class="drill-head">
                   <div>
