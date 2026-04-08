@@ -87,16 +87,22 @@
       </div>
 
       <div class="picker-body" *ngIf="baselineMode !== 'manual'; else manualRoutePicker">
-        <select multiple size="10" class="multi">
+        <select class="single-picker" [ngModel]="driverPickerId" (ngModelChange)="onDriverPick($event)">
+          <option [ngValue]="null">Select driver to add</option>
           <option
             *ngFor="let d of sortedDrivers"
-            [value]="d.driverId"
-            (click)="toggleDriver(d.driverId)"
+            [ngValue]="d.driverId"
             [style.fontWeight]="(baselineMode === 'route' && isDriverOnRoute(d.driverId)) ? '800' : '500'"
           >
             {{ d.name }}
           </option>
         </select>
+
+        <div class="selected-list">
+          <button type="button" class="sel-chip" *ngFor="let id of selectedDriverIds" (click)="toggleDriver(id)">
+            {{ driverName(id) }} ✕
+          </button>
+        </div>
 
         <div class="picker-help" *ngIf="baselineMode === 'route' && selectedRouteId">
           <div class="tip">
@@ -108,15 +114,26 @@
 
       <ng-template #manualRoutePicker>
         <div class="picker-body">
-          <select multiple size="10" class="multi">
+          <select class="single-picker" [ngModel]="manualRoutePickerId" (ngModelChange)="onManualRoutePick($event)">
+            <option [ngValue]="null">Select route to add</option>
             <option
               *ngFor="let r of routesList"
-              [value]="r.routeId"
-              (click)="toggleManualRoute(r.routeId)"
+              [ngValue]="r.routeId"
             >
               {{ r.routeId }}
             </option>
           </select>
+
+          <div class="selected-list">
+            <button
+              type="button"
+              class="sel-chip"
+              *ngFor="let id of selectedManualRouteIds"
+              (click)="toggleManualRoute(id)"
+            >
+              {{ id }} ✕
+            </button>
+          </div>
         </div>
       </ng-template>
     </div>
@@ -168,12 +185,12 @@
       <thead>
         <tr>
           <th>{{ baselineMode === 'manual' ? 'Route' : 'Driver' }}</th>
-          <th class="num">Δ Stops</th>
+          <th class="num">Miles</th>
           <th class="num">Δ Miles</th>
+          <th class="num">SPM</th>
           <th class="num">Δ SPM</th>
-          <th class="num">Δ NDPPH</th>
+          <th class="num">Ov/Un</th>
           <th class="num">Δ Ov/Un</th>
-          <th class="num">Δ SPORH</th>
         </tr>
       </thead>
 
@@ -185,39 +202,24 @@
             <span class="badge" *ngIf="baselineMode === 'route' && r.onRoute">Drove Route</span>
           </td>
 
-          <td class="num">
-            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.stops)">
-              {{ deltaArrow(r.deltas.stops) }} {{ formatDeltaValue(r.deltas.stops, 'stops') }}
-            </span>
-          </td>
-
+          <td class="num">{{ formatMetricValue(r.values.miles, 'miles') }}</td>
           <td class="num">
             <span class="delta-chip" [ngClass]="deltaClass(r.deltas.miles)">
               {{ deltaArrow(r.deltas.miles) }} {{ formatDeltaValue(r.deltas.miles, 'miles') }}
             </span>
           </td>
 
+          <td class="num">{{ formatMetricValue(r.values.spm, 'spm') }}</td>
           <td class="num">
             <span class="delta-chip" [ngClass]="deltaClass(r.deltas.spm)">
               {{ deltaArrow(r.deltas.spm) }} {{ formatDeltaValue(r.deltas.spm, 'spm') }}
             </span>
           </td>
 
-          <td class="num">
-            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.ndpph)">
-              {{ deltaArrow(r.deltas.ndpph) }} {{ formatDeltaValue(r.deltas.ndpph, 'ndpph') }}
-            </span>
-          </td>
-
+          <td class="num">{{ formatMetricValue(r.values.paidVsPlan, 'paidVsPlan') }}</td>
           <td class="num">
             <span class="delta-chip" [ngClass]="deltaClass(r.deltas.paidVsPlan)">
               {{ deltaArrow(r.deltas.paidVsPlan) }} {{ formatDeltaValue(r.deltas.paidVsPlan, 'paidVsPlan') }}
-            </span>
-          </td>
-
-          <td class="num">
-            <span class="delta-chip" [ngClass]="deltaClass(r.deltas.sporh)">
-              {{ deltaArrow(r.deltas.sporh) }} {{ formatDeltaValue(r.deltas.sporh, 'sporh') }}
             </span>
           </td>
         </tr>

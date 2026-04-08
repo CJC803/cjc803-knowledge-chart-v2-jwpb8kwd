@@ -152,6 +152,29 @@ input {
   font-weight: 600;
 }
 
+.single-picker {
+  width: 100%;
+  border-radius: 12px;
+  padding: 8px;
+  font-weight: 600;
+}
+
+.selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sel-chip {
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #351c15;
+  font-weight: 700;
+}
+
 .tip {
   display: flex;
   gap: 8px;

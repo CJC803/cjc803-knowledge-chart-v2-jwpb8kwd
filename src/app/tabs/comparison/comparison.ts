@@ -23,6 +23,7 @@ type ComparisonRow = {
   routeId?: string | null;
   driverId?: string | null;
   onRoute: boolean;
+  values: Baseline;
   deltas: Baseline;
 };
 
@@ -41,9 +42,11 @@ export class ComparisonComponent {
 
   readonly maxDrivers = 8;
   selectedDriverIds: string[] = [];
+  driverPickerId: string | null = null;
 
   readonly maxRoutes = 8;
   selectedManualRouteIds: string[] = [];
+  manualRoutePickerId: string | null = null;
 
   readonly chartMetricOptions: Array<{ key: MetricKey; label: string }> = [
     { key: 'ndpph', label: 'NDPPH' },
@@ -54,7 +57,7 @@ export class ComparisonComponent {
     { key: 'sporh', label: 'SPORH' },
   ];
 
-  selectedChartMetrics: MetricKey[] = ['ndpph'];
+  selectedChartMetrics: MetricKey[] = ['miles', 'spm', 'paidVsPlan'];
 
   manualBaseline: Baseline = {
     stops: 120,
@@ -128,6 +131,12 @@ export class ComparisonComponent {
     this.recomputeRowsOnly();
   }
 
+  onDriverPick(driverId: string | null) {
+    if (!driverId) return;
+    this.toggleDriver(driverId);
+    this.driverPickerId = null;
+  }
+
   toggleManualRoute(routeId: string) {
     const idx = this.selectedManualRouteIds.indexOf(routeId);
 
@@ -145,6 +154,12 @@ export class ComparisonComponent {
 
     this.selectedManualRouteIds = [...this.selectedManualRouteIds, routeId];
     this.recomputeRowsOnly();
+  }
+
+  onManualRoutePick(routeId: string | null) {
+    if (!routeId) return;
+    this.toggleManualRoute(routeId);
+    this.manualRoutePickerId = null;
   }
 
   clearSelectedDrivers() {
@@ -200,6 +215,11 @@ export class ComparisonComponent {
     if (value > 0) return `+${abs}`;
     if (value < 0) return `-${abs}`;
     return Number(0).toFixed(decimals);
+  }
+
+  formatMetricValue(value: number, metric: MetricKey): string {
+    const decimals = metric === 'spm' || metric === 'paidVsPlan' ? 2 : 1;
+    return toNum(value, 0).toFixed(decimals);
   }
 
   chartAbsWidthFor(rowId: string, metric: MetricKey) {
@@ -332,6 +352,7 @@ export class ComparisonComponent {
             driverId: null,
             name: routeId,
             onRoute: false,
+            values: compareStats,
             deltas: {
               stops: +(compareStats.stops - baseline.stops).toFixed(1),
               miles: +(compareStats.miles - baseline.miles).toFixed(1),
@@ -386,6 +407,7 @@ export class ComparisonComponent {
           routeId: meta.bidRoute ?? null,
           name: meta.name ?? driverId,
           onRoute: this.isDriverOnRoute(driverId),
+          values: compareStats,
           deltas: {
             stops: +(compareStats.stops - baseline.stops).toFixed(1),
             miles: +(compareStats.miles - baseline.miles).toFixed(1),
