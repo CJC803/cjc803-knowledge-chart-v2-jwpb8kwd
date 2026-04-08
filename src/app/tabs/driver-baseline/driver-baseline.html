@@ -15,12 +15,11 @@
         <tr>
           <th>Driver</th>
           <th class="num">Seniority</th>
-          <th>Bid Route</th>
-          <th class="num">Stops</th>
-          <th class="num">Miles</th>
-          <th class="num">SPM</th>
-          <th class="num">NDPPH</th>
+          <th class="num">Avg SPM</th>
+          <th class="num">Avg NDPPH</th>
           <th class="num">Ov/Un</th>
+          <th class="num">Miles</th>
+          <th class="num">Stops</th>
           <th class="num">SPORH</th>
           <th>AM / PM</th>
         </tr>
@@ -36,32 +35,42 @@
             </td>
 
             <td class="num">{{ d.seniority }}</td>
-            <td>{{ d.bidRoute }}</td>
-            <td class="num">{{ d.avgStops }}</td>
-            <td class="num">{{ d.avgMiles }}</td>
             <td class="num">{{ d.avgSPM }}</td>
-
+            <td class="num">{{ d.avgNDPPH }}</td>
             <td class="num">
-              <div class="metric">
-                <span class="v">{{ d.avgNDPPH }}</span>
-                <div class="mtrack">
-                  <div
-                    class="mfill"
-                    [ngClass]="{
-                      'good': d.avgNDPPH >= 28,
-                      'warn': d.avgNDPPH >= 26 && d.avgNDPPH < 27.99,
-                      'bad': d.avgNDPPH < 26
-                    }"
-                    [style.width.%]="Math.min((d.avgNDPPH / 30) * 100, 100)">
+              <ng-container *ngIf="showParentColor(d.sampleDays); else parentOvUnPlain">
+                <div class="metric">
+                  <span class="v">{{ d.avgOvUn }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="ovUnClass(d.avgOvUn)"
+                      [style.width.%]="barWidth(d.avgOvUn, 3)">
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ng-container>
+              <ng-template #parentOvUnPlain>{{ d.avgOvUn }}</ng-template>
+            </td>
+            <td class="num">{{ d.avgMiles }}</td>
+            <td class="num">
+              <ng-container *ngIf="showParentColor(d.sampleDays); else parentStopsPlain">
+                <div class="metric">
+                  <span class="v">{{ d.avgStops }}</span>
+                  <div class="mtrack">
+                    <div
+                      class="mfill"
+                      [ngClass]="stopsClass(d.avgStops)"
+                      [style.width.%]="barWidth(d.avgStops, 180)">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #parentStopsPlain>{{ d.avgStops }}</ng-template>
             </td>
 
-            <td class="num">{{ d.avgOvUn }}</td>
-
             <td class="num">
-              <div class="metric">
+              <div class="metric" *ngIf="showParentColor(d.sampleDays); else parentSporhPlain">
                 <span class="v">{{ d.avgSPORH ?? '—' }}</span>
                 <div class="mtrack">
                   <div
@@ -75,6 +84,7 @@
                   </div>
                 </div>
               </div>
+              <ng-template #parentSporhPlain>{{ d.avgSPORH ?? '—' }}</ng-template>
             </td>
 
             <td>{{ d.amPmSplit }}</td>
@@ -82,7 +92,7 @@
 
           <!-- DRILLDOWN -->
           <tr *ngIf="expandedDriverId === d.driverId" class="drill-row">
-            <td colspan="10">
+            <td colspan="9">
               <div class="drill">
                 <div class="drill-head">
                   <div>
@@ -134,10 +144,52 @@
                         <!-- ✅ Rollups -->
                         <td class="num">{{ rt.avgSPM }}</td>
                         <td class="num">{{ rt.avgNDPPH }}</td>
-                        <td class="num">{{ rt.avgOvUn }}</td>
+                        <td class="num">
+                          <ng-container *ngIf="showChildColor(rt.days); else driverOvUnPlain">
+                            <div class="metric">
+                              <span class="v">{{ rt.avgOvUn }}</span>
+                              <div class="mtrack">
+                                <div
+                                  class="mfill"
+                                  [ngClass]="ovUnClass(rt.avgOvUn)"
+                                  [style.width.%]="barWidth(rt.avgOvUn, 3)">
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-template #driverOvUnPlain>{{ rt.avgOvUn }}</ng-template>
+                        </td>
                         <td class="num">{{ rt.avgMiles }}</td>
-                        <td class="num">{{ rt.avgStops }}</td>
-                        <td class="num">{{ rt.avgSPORH }}</td>
+                        <td class="num">
+                          <ng-container *ngIf="showChildColor(rt.days); else driverStopsPlain">
+                            <div class="metric">
+                              <span class="v">{{ rt.avgStops }}</span>
+                              <div class="mtrack">
+                                <div
+                                  class="mfill"
+                                  [ngClass]="stopsClass(rt.avgStops)"
+                                  [style.width.%]="barWidth(rt.avgStops, 180)">
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-template #driverStopsPlain>{{ rt.avgStops }}</ng-template>
+                        </td>
+                        <td class="num">
+                          <ng-container *ngIf="showChildColor(rt.days); else driverSporhPlain">
+                            <div class="metric">
+                              <span class="v">{{ rt.avgSPORH }}</span>
+                              <div class="mtrack">
+                                <div
+                                  class="mfill"
+                                  [ngClass]="sporhClass(rt.avgSPORH)"
+                                  [style.width.%]="barWidth(rt.avgSPORH, 20)">
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-template #driverSporhPlain>{{ rt.avgSPORH }}</ng-template>
+                        </td>
                       </tr>
 
                       <!-- Level 2: Days for selected route -->
@@ -155,6 +207,7 @@
                                 <th class="num">NDPPH</th>
                                 <th class="num">SPORH</th>
                                 <th class="num">Ov/Un</th>
+                                <th>On-Car Sup</th>
                                 <th>PM</th>
                                 <th>Time</th>
                               </tr>
@@ -169,7 +222,8 @@
                                 <td class="num">{{ spmForRow(row) }}</td>
                                 <td class="num">{{ row.ndpph }}</td>
                                 <td class="num">{{ row.sporh ?? '—' }}</td>
-                                <td class="num">{{ row.paidVsPlan }}</td>
+                                <td class="num">{{ row.ovUn ?? row.paidVsPlan }}</td>
+                                <td>{{ row.onCarSupervisor ? 'Yes' : 'No' }}</td>
                                 <td>{{ row.pm ?? '—' }}</td>
                                 <td>{{ row.time ?? '—' }}</td>
                               </tr>
