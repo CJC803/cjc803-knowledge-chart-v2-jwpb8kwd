@@ -23,6 +23,7 @@ type ComparisonRow = {
   routeId?: string | null;
   driverId?: string | null;
   onRoute: boolean;
+  values: Baseline;
   deltas: Baseline;
 };
 
@@ -41,9 +42,12 @@ export class ComparisonComponent {
 
   readonly maxDrivers = 8;
   selectedDriverIds: string[] = [];
+  showDriverChooser = false;
+  pendingDriverIds: string[] = [];
 
   readonly maxRoutes = 8;
   selectedManualRouteIds: string[] = [];
+  manualRoutePickerId: string | null = null;
 
   readonly chartMetricOptions: Array<{ key: MetricKey; label: string }> = [
     { key: 'ndpph', label: 'NDPPH' },
@@ -54,7 +58,7 @@ export class ComparisonComponent {
     { key: 'sporh', label: 'SPORH' },
   ];
 
-  selectedChartMetrics: MetricKey[] = ['ndpph'];
+  selectedChartMetrics: MetricKey[] = ['miles', 'spm', 'paidVsPlan'];
 
   manualBaseline: Baseline = {
     stops: 120,
@@ -128,6 +132,37 @@ export class ComparisonComponent {
     this.recomputeRowsOnly();
   }
 
+  toggleDriverChooser() {
+    this.showDriverChooser = !this.showDriverChooser;
+    if (!this.showDriverChooser) this.pendingDriverIds = [];
+  }
+
+  togglePendingDriver(driverId: string) {
+    if (this.pendingDriverIds.includes(driverId)) {
+      this.pendingDriverIds = this.pendingDriverIds.filter((id) => id !== driverId);
+      return;
+    }
+    this.pendingDriverIds = [...this.pendingDriverIds, driverId];
+  }
+
+  isPendingDriver(driverId: string) {
+    return this.pendingDriverIds.includes(driverId);
+  }
+
+  addPendingDrivers() {
+    if (!this.pendingDriverIds.length) return;
+
+    const merged = [...this.selectedDriverIds];
+    this.pendingDriverIds.forEach((id) => {
+      if (!merged.includes(id)) merged.push(id);
+    });
+
+    this.selectedDriverIds = merged.slice(-this.maxDrivers);
+    this.pendingDriverIds = [];
+    this.showDriverChooser = false;
+    this.recomputeRowsOnly();
+  }
+
   toggleManualRoute(routeId: string) {
     const idx = this.selectedManualRouteIds.indexOf(routeId);
 
@@ -147,8 +182,16 @@ export class ComparisonComponent {
     this.recomputeRowsOnly();
   }
 
+  onManualRoutePick(routeId: string | null) {
+    if (!routeId) return;
+    this.toggleManualRoute(routeId);
+    this.manualRoutePickerId = null;
+  }
+
   clearSelectedDrivers() {
     this.selectedDriverIds = [];
+    this.pendingDriverIds = [];
+    this.showDriverChooser = false;
     this.recomputeRowsOnly();
   }
 
@@ -202,6 +245,11 @@ export class ComparisonComponent {
     return Number(0).toFixed(decimals);
   }
 
+  formatMetricValue(value: number, metric: MetricKey): string {
+    const decimals = metric === 'spm' || metric === 'paidVsPlan' ? 2 : 1;
+    return toNum(value, 0).toFixed(decimals);
+  }
+
   chartAbsWidthFor(rowId: string, metric: MetricKey) {
     const vals = this.rows.map((r) => Math.abs(this.metricValueFromBaseline(r.deltas, metric)));
     const max = Math.max(...vals, 1);
@@ -243,6 +291,11 @@ export class ComparisonComponent {
       return an.localeCompare(bn);
     });
     return list;
+  }
+
+  get availableDriversForChooser() {
+    const selected = new Set(this.selectedDriverIds);
+    return this.sortedDrivers.filter((d: any) => !selected.has(d.driverId));
   }
 
   recompute() {
@@ -332,6 +385,7 @@ export class ComparisonComponent {
             driverId: null,
             name: routeId,
             onRoute: false,
+            values: compareStats,
             deltas: {
               stops: +(compareStats.stops - baseline.stops).toFixed(1),
               miles: +(compareStats.miles - baseline.miles).toFixed(1),
@@ -386,6 +440,7 @@ export class ComparisonComponent {
           routeId: meta.bidRoute ?? null,
           name: meta.name ?? driverId,
           onRoute: this.isDriverOnRoute(driverId),
+          values: compareStats,
           deltas: {
             stops: +(compareStats.stops - baseline.stops).toFixed(1),
             miles: +(compareStats.miles - baseline.miles).toFixed(1),
