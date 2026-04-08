@@ -95,6 +95,11 @@
         </div>
 
         <div class="driver-chooser" *ngIf="showDriverChooser">
+          <div class="chooser-footer top">
+            <button type="button" class="btn ghost" (click)="pendingDriverIds = []">Clear</button>
+            <button type="button" class="btn" (click)="addPendingDrivers()">Add Selected</button>
+          </div>
+
           <label class="chooser-item" *ngFor="let d of availableDriversForChooser">
             <input
               type="checkbox"
@@ -104,11 +109,6 @@
               {{ d.name }}
             </span>
           </label>
-
-          <div class="chooser-footer">
-            <button type="button" class="btn ghost" (click)="pendingDriverIds = []">Clear</button>
-            <button type="button" class="btn" (click)="addPendingDrivers()">Add Selected</button>
-          </div>
         </div>
 
         <div class="selected-list">
