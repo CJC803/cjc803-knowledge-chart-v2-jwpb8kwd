@@ -117,6 +117,12 @@
           </button>
         </div>
 
+        <div class="selected-list">
+          <button type="button" class="sel-chip" *ngFor="let id of selectedDriverIds" (click)="toggleDriver(id)">
+            {{ driverName(id) }} ✕
+          </button>
+        </div>
+
         <div class="picker-help" *ngIf="baselineMode === 'route' && selectedRouteId">
           <div class="tip">
             <span class="dot"></span>
