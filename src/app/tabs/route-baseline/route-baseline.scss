@@ -261,6 +261,17 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* tighten Bid? column in the main route table */
+.kc-table th:nth-child(2),
+.kc-table td:nth-child(2) {
+  width: 56px;
+  min-width: 56px;
+  max-width: 56px;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 .center {
   text-align: center;
 }
