@@ -95,7 +95,7 @@
         </div>
 
         <div class="driver-chooser" *ngIf="showDriverChooser">
-          <label class="chooser-item" *ngFor="let d of sortedDrivers">
+          <label class="chooser-item" *ngFor="let d of availableDriversForChooser">
             <input
               type="checkbox"
               [checked]="isPendingDriver(d.driverId)"
@@ -109,12 +109,6 @@
             <button type="button" class="btn ghost" (click)="pendingDriverIds = []">Clear</button>
             <button type="button" class="btn" (click)="addPendingDrivers()">Add Selected</button>
           </div>
-        </div>
-
-        <div class="selected-list">
-          <button type="button" class="sel-chip" *ngFor="let id of selectedDriverIds" (click)="toggleDriver(id)">
-            {{ driverName(id) }} ✕
-          </button>
         </div>
 
         <div class="selected-list">

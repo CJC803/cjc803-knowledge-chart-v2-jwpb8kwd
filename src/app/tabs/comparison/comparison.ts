@@ -293,6 +293,11 @@ export class ComparisonComponent {
     return list;
   }
 
+  get availableDriversForChooser() {
+    const selected = new Set(this.selectedDriverIds);
+    return this.sortedDrivers.filter((d: any) => !selected.has(d.driverId));
+  }
+
   recompute() {
     if (!this.latestData) return;
 
