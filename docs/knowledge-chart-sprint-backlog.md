@@ -9,6 +9,7 @@ This backlog covers:
 - Coverage decision support enhancements (driver/route indicators and recommendations).
 - Visual prioritization for key child metrics.
 - Operational context fields (on-car supervisor, bid flag, rural SPM handling).
+- Delivery-context support for standalone and RTW-embedded access.
 
 ---
 
@@ -172,8 +173,8 @@ This backlog covers:
    - Pd Day remains non-color.
 
 3. **Color Rules with Sample Size Guardrail**
-   - Apply child-level color only when `n > 6`.
-   - Use neutral styling + explanatory cue when `n <= 6`.
+   - Apply child-level color only when `n >= 6`.
+   - Use neutral styling + explanatory cue when `n < 6`.
 
 4. **Progress Bar Visual Standard (Narrowed Scope)**
    - Progress bar visualizations are enabled only for:
@@ -243,12 +244,15 @@ This backlog covers:
 3. Exclude peak behavior implemented consistently.
 4. Read-only bid checkbox in driver and route views.
 5. Child-level `On-Car Supervisor` column.
+6. RTW embedded entry to open Knowledge Chart with route context pre-applied.
+7. Standalone and RTW-embedded parity for core filter, drilldown, and comparison semantics.
 
 ### P1 — Should Have
 1. Progress bar visuals only for Stops, Ov/Un, and SPORH.
 2. Color ranking for Stops/Ov-Un/SPORH/DEMO; none for Pd Day (when introduced).
-3. Color applied only when `n > 6`.
+3. Color applied only when `n >= 6`.
 4. Rollup toggle to exclude supervised days.
+5. Embedded fallback behavior and telemetry by host context (`standalone` vs `rtw_embedded`).
 
 ### P2 — Could Have
 1. Recommendation engine v1 with willingness + supervisor-aware strategy choice.
